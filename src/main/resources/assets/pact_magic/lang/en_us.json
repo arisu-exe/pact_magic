@@ -1,0 +1,50 @@
+{
+	"item.pact_magic.book_of_angels" : "Book of Angels",
+	
+	"item.pact_magic.book_of_demons" : "Book of Demons",
+	
+	
+	
+	"gui.seraphim.title" : "Seraphim",
+	"gui.cherubim.title" : "Cherubim",
+	"gui.thrones.title" : "Thrones",
+
+	"gui.dominions.title" : "Dominions",
+	"gui.virtues.title" : "Virtues",
+	"gui.powers.title" : "Powers",
+
+	"gui.principalities.title" : "Principalities",
+	"gui.archangels.title" : "Archangels",
+	"gui.angels.title" : "Angels",
+	
+	"gui.slot_cost.angel" : "Slotting this Angel will cost %s Karma",
+	"gui.swap_cost.angel" : "Swapping this Angel will cost %s Karma",
+	"gui.unslot_cost.angel" : "Unslotting this Angel will cost %s Karma",
+	
+	"gui.satan.title" : "Satan",
+	"gui.lucifer.title" : "Lucifer",
+	"gui.beelzebub.title" : "Beelzebub",
+
+	"gui.abaddon.title" : "Abaddon",
+	"gui.mammon.title" : "Mammon",
+	"gui.asmodeus.title" : "Asmodeus",
+
+	"gui.demogorgon.title" : "Demogorgon",
+	"gui.valefar.title" : "Valefar",
+	"gui.belphegor.title" : "Belphegor",
+	
+	"gui.slot_cost.demon" : "Slotting this Demon will cost %s Karma",
+	"gui.swap_cost.demon" : "Swapping this Demon will cost %s Karma",
+	"gui.unslot_cost.demon" : "Unslotting this Demon will cost %s Karma",
+	
+	
+	
+	"advancements.pact_magic.root.title" : "Pact Magic",
+	"advancements.pact_magic.root.description" : "Download Pact Magic",
+	
+	"advancements.pact_magic.obtain_book_of_angels.title" : "All the Angels",
+	"advancements.pact_magic.obtain_book_of_angels.description" : "Obtain the Book of Angels",
+	
+	"advancements.pact_magic.obtain_book_of_demons.title" : "Demonic",
+	"advancements.pact_magic.obtain_book_of_demons.description" : "Obtain the Book of Demons"
+}
