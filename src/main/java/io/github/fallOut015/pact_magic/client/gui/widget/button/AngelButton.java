@@ -5,6 +5,7 @@ import java.util.function.Function;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import io.github.fallOut015.pact_magic.Main;
 import io.github.fallOut015.pact_magic.common.angels.Angel;
 import io.github.fallOut015.pact_magic.common.capabilities.CapabilitiesPactMagic;
 import io.github.fallOut015.pact_magic.server.PacketHandlerPactMagic;
@@ -67,13 +68,13 @@ public class AngelButton extends Button {
 		Minecraft minecraft = Minecraft.getInstance();
 		
 		// Background / border
-		minecraft.getTextureManager().bindTexture(new ResourceLocation("pact_magic", "textures/gui/border.png"));
+		minecraft.getTextureManager().bindTexture(Main.BORDER);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		blit(matrixStack, this.x, this.y, 0, 0, this.width, this.height, this.width, this.height);
 		
 		// Image
 		FontRenderer fontrenderer = minecraft.fontRenderer;
-		minecraft.getTextureManager().bindTexture(new ResourceLocation("pact_magic", "textures/gui/angels/" + this.slottedAngel.getID() + ".png"));
+		minecraft.getTextureManager().bindTexture(this.slottedAngel.getTexture());
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();

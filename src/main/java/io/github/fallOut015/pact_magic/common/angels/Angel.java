@@ -26,6 +26,7 @@ public abstract class Angel {
 	@Nullable final Attribute debuff;
 	final boolean autoActivate; // true to disallow right clicking
 	final int cooldown;
+	final ResourceLocation texture;
 	final ResourceLocation buff_texture;
 	@Nullable final ResourceLocation debuff_texture;
 	
@@ -39,6 +40,7 @@ public abstract class Angel {
 		this.debuff = debuff;
 		this.autoActivate = autoActivate;
 		this.cooldown = cooldown;
+		this.texture = new ResourceLocation("pact_magic", "textures/gui/angels/" + id + ".png");
 		this.buff_texture = new ResourceLocation("pact_magic", "textures/gui/" + buff.getAttributeName() + ".png");
 		if(this.debuff == null) {
 			this.debuff_texture = null;
@@ -102,6 +104,9 @@ public abstract class Angel {
 	}
 	@Nullable public ServerPlayerEntity getPlayer() {
 		return this.player;
+	}
+	public final ResourceLocation getTexture() {
+		return this.texture;
 	}
 	public final ResourceLocation getBuffTexture() {
 		return this.buff_texture;

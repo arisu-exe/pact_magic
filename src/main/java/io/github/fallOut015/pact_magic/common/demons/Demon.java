@@ -29,6 +29,7 @@ public abstract class Demon {
 	@Nullable final Attribute debuff;
 	final boolean autoActivate; // true to disallow right clicking
 	final LazyValue<Ingredient> offering;
+	final ResourceLocation texture;
 	final ResourceLocation buff_texture;
 	@Nullable final ResourceLocation debuff_texture;
 	
@@ -41,6 +42,7 @@ public abstract class Demon {
 		this.debuff = debuff;
 		this.autoActivate = autoActivate;
 		this.offering = new LazyValue<>(offering);
+		this.texture = new ResourceLocation("pact_magic", "textures/gui/demons/" + id + ".png");
 		this.buff_texture = new ResourceLocation("pact_magic", "textures/gui/" + buff.getAttributeName() + ".png");
 		if(this.debuff == null) {
 			this.debuff_texture = null;
@@ -75,9 +77,9 @@ public abstract class Demon {
 		
 		Main.LOGGER.debug("slotting " + this.getID());
 
-		this.player.getAttribute(this.buff).applyNonPersistentModifier(new AttributeModifier(DEMON_BUFF, "Demon buff", 1 / (this.rank + 1), Operation.MULTIPLY_BASE));
+		this.player.getAttribute(this.buff).applyNonPersistentModifier(new AttributeModifier(DEMON_BUFF, "Demon buff", (double) this.rank, Operation.MULTIPLY_BASE));
 		if(this.debuff != null) {
-			this.player.getAttribute(this.debuff).applyNonPersistentModifier(new AttributeModifier(DEMON_DEBUFF, "Demon debuff", 1 / (this.rank + 1), Operation.MULTIPLY_BASE));
+			this.player.getAttribute(this.debuff).applyNonPersistentModifier(new AttributeModifier(DEMON_DEBUFF, "Demon debuff", 1d / ((double) this.rank + 1d), Operation.MULTIPLY_BASE));
 		}
 	}
 	public void onUnslot() {
@@ -96,6 +98,9 @@ public abstract class Demon {
 	}
 	@Nullable public ServerPlayerEntity getPlayer() {
 		return this.player;
+	}
+	public final ResourceLocation getTexture() {
+		return this.texture;
 	}
 	public final ResourceLocation getBuffTexture() {
 		return this.buff_texture;
