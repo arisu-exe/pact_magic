@@ -1,13 +1,13 @@
 modLoader="javafml"
 loaderVersion="[34,)"
 license="All rights reserved"
-issueTrackerURL="http://my.issue.tracker/" #todo
+issueTrackerURL="https://github.com/fallOut015/pact_magic/issues"
 [[mods]]
 modId="pact_magic"
 version="${file.jarVersion}"
 displayName="Pact Magic"
 updateJSONURL="https://fallout015.github.io/pact_magic/src/main/resources/updateJSONURL.json"
-displayURL="http://example.com/" #todo
+displayURL="https://www.curseforge.com/minecraft/mc-mods/pact-magic"
 logoFile="logoFile.png"
 credits="Thanks to Mojang Studios, Forge, the people who's tutorials I followed, and the people who I call friends."
 authors="fallOut015"
