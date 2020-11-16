@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[34,)"
+license="All rights reserved"
+issueTrackerURL="http://my.issue.tracker/" #todo
+[[mods]]
+modId="pact_magic"
+version="${file.jarVersion}"
+displayName="Pact Magic"
+updateJSONURL="https://fallout015.github.io/pact_magic/src/main/resources/updateJSONURL.json"
+displayURL="http://example.com/" #todo
+logoFile="logoFile.png"
+credits="Thanks to Mojang Studios, Forge, the people who's tutorials I followed, and the people who I call friends."
+authors="fallOut015"
+description='''
+Adds new Angels and Demons to summon.
+'''
+[[dependencies.pact_magic]]
+    modId="forge"
+    mandatory=true
+    versionRange="[34,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.pact_magic]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3]"
+    ordering="NONE"
+    side="BOTH"
