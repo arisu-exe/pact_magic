@@ -22,16 +22,16 @@
 	"gui.unslot_cost.angel" : "Unslotting this Angel will cost %s Karma",
 	
 	"gui.satan.title" : "Satan",
-	"gui.lucifer.title" : "Lucifer",
 	"gui.beelzebub.title" : "Beelzebub",
+	"gui.astaroth.title" : "Astaroth",
 
 	"gui.abaddon.title" : "Abaddon",
 	"gui.mammon.title" : "Mammon",
 	"gui.asmodeus.title" : "Asmodeus",
 
-	"gui.demogorgon.title" : "Demogorgon",
-	"gui.valefar.title" : "Valefar",
-	"gui.belphegor.title" : "Belphegor",
+	"gui.pytho.title" : "Pytho",
+	"gui.belial.title" : "Belial",
+	"gui.merihem.title" : "Merihem",
 	
 	"gui.slot_cost.demon" : "Slotting this Demon will cost %s Karma",
 	"gui.swap_cost.demon" : "Swapping this Demon will cost %s Karma",

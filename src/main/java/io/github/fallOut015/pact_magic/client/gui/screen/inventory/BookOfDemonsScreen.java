@@ -21,16 +21,16 @@ public class BookOfDemonsScreen extends Screen {
 	private static final ResourceLocation BOOK_OF_DEMONS_GUI_TEXTURE = new ResourceLocation("pact_magic", "textures/gui/book_of_demons.png");
 	
 	protected Button buttonSatan;
-	protected Button buttonLucifer;
 	protected Button buttonBeelzebub;
+	protected Button buttonAstaroth;
 
 	protected Button buttonAbaddon;
 	protected Button buttonMammon;
 	protected Button buttonAsmodeus;
 
-	protected Button buttonDemogorgon;
-	protected Button buttonValefar;
-	protected Button buttonBelphegor;
+	protected Button buttonPytho;
+	protected Button buttonBelial;
+	protected Button buttonMerihem;
 	
 	private final PlayerEntity player;
 
@@ -44,16 +44,16 @@ public class BookOfDemonsScreen extends Screen {
 		super.init();
 		
 		this.buttonSatan = this.addButton(new DemonButton(this.width / 18 + 2, 40, this.player, Demons.SATAN, this));
-		this.buttonLucifer = this.addButton(new DemonButton(this.width / 18 + 130, 40, this.player, Demons.LUCIFER, this));
 		this.buttonBeelzebub = this.addButton(new DemonButton(this.width / 18 + 258, 40, this.player, Demons.BEELZEBUB, this));
+		this.buttonAstaroth = this.addButton(new DemonButton(this.width / 18 + 130, 40, this.player, Demons.ASTAROTH, this));
 
 		this.buttonAbaddon = this.addButton(new DemonButton(this.width / 18 + 2, 106, this.player, Demons.ABADDON, this));
 		this.buttonMammon = this.addButton(new DemonButton(this.width / 18 + 130, 106, this.player, Demons.MAMMON, this));
 		this.buttonAsmodeus = this.addButton(new DemonButton(this.width / 18 + 258, 106, this.player, Demons.ASMODEUS, this));
 
-		this.buttonDemogorgon = this.addButton(new DemonButton(this.width / 18 + 2, 172, this.player, Demons.DEMOGORGON, this));
-		this.buttonValefar = this.addButton(new DemonButton(this.width / 18 + 130, 172, this.player, Demons.VALEFAR, this));
-		this.buttonBelphegor = this.addButton(new DemonButton(this.width / 18 + 258, 172, this.player, Demons.BELPHEGOR, this));
+		this.buttonPytho = this.addButton(new DemonButton(this.width / 18 + 2, 172, this.player, Demons.PYTHO, this));
+		this.buttonBelial = this.addButton(new DemonButton(this.width / 18 + 130, 172, this.player, Demons.BELIAL, this));
+		this.buttonMerihem = this.addButton(new DemonButton(this.width / 18 + 258, 172, this.player, Demons.MERIHEM, this));
 	}
 	
 	@SuppressWarnings("deprecation")

@@ -7,13 +7,14 @@ import io.github.fallOut015.pact_magic.entity.effect.demons.MammonEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
 public class MammonDemon extends Demon {
 	@Nullable MammonEntity mammon;
 
 	MammonDemon() {
-		super("mammon", 2, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.fromItems());
+		super("mammon", 2, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.fromItems(Items.GOLD_INGOT, Items.GOLD_INGOT));
 	
 		this.mammon = null;
 	}

@@ -13,6 +13,6 @@ public class SatanDemon extends Demon {
 	@Override
 	protected void effect(ServerPlayerEntity t) {
 		// TODO Auto-generated method stub
-		// Activate Sweet Revenge
+		// Activate Curse
 	}
 }
