@@ -25,7 +25,7 @@
         "items": [
           {
             "item": "pact_magic:book_of_demons",
-			"nbt" : "{satan:true,beelzebub:true,astaroth:true,abaddon:true,mammon:true,admodeus:true,pytho:true,belial:true,merihem:true}"
+			"nbt" : "{satan:true,beelzebub:true,astaroth:true,abaddon:true,mammon:true,asmodeus:true,pytho:true,belial:true,merihem:true}"
           }
         ]
       }
