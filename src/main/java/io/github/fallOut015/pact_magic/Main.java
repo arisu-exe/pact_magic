@@ -17,6 +17,7 @@ import io.github.fallOut015.pact_magic.common.capabilities.PactMagic;
 import io.github.fallOut015.pact_magic.common.capabilities.PactMagicProvider;
 import io.github.fallOut015.pact_magic.entity.EntityTypePactMagic;
 import io.github.fallOut015.pact_magic.item.ItemsPactMagic;
+import io.github.fallOut015.pact_magic.item.crafting.RecipeSerializersPactMagic;
 import io.github.fallOut015.pact_magic.server.JumpPacketHandler;
 import io.github.fallOut015.pact_magic.server.PacketHandlerPactMagic;
 import io.github.fallOut015.pact_magic.server.SpellCastPacketHandler;
@@ -82,6 +83,7 @@ public class Main {
     public Main() {
     	ItemsPactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
     	EntityTypePactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
+    	RecipeSerializersPactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
     	
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
