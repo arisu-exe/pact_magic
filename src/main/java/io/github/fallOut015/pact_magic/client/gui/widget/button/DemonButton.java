@@ -15,7 +15,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,10 +25,6 @@ public class DemonButton extends Button {
 	static final Function<Integer, TranslationTextComponent> SLOT = rank -> new TranslationTextComponent("gui.slot_cost.demon", rank);
 	static final Function<Integer, TranslationTextComponent> SWAP = rank -> new TranslationTextComponent("gui.swap_cost.demon", rank);
 	static final Function<Integer, TranslationTextComponent> UNSLOT = rank -> new TranslationTextComponent("gui.unslot_cost.demon", rank);
-	
-	static final ResourceLocation BUFF = new ResourceLocation("pact_magic", "textures/gui/buff.png");
-	static final ResourceLocation DEBUFF = new ResourceLocation("pact_magic", "textures/gui/debuff.png");
-	static final ResourceLocation NONE = new ResourceLocation("pact_magic", "textures/gui/none.png");
 	
 	final PlayerEntity player;
 	final Demon slottedDemon;
@@ -94,7 +89,7 @@ public class DemonButton extends Button {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		blit(matrixStack, this.x + this.width + 2, this.y + 18, 0, 0, 16, 16, 16, 16);
 		
-		minecraft.getTextureManager().bindTexture(BUFF);
+		minecraft.getTextureManager().bindTexture(Main.BUFF);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		blit(matrixStack, this.x + this.width + 18, this.y + 18, 0, 0, 16, 16, 16, 16);
 		
@@ -103,11 +98,11 @@ public class DemonButton extends Button {
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 			blit(matrixStack, this.x + this.width + 34, this.y + 18, 0, 0, 16, 16, 16, 16);
 			
-			minecraft.getTextureManager().bindTexture(DEBUFF);
+			minecraft.getTextureManager().bindTexture(Main.DEBUFF);
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 			blit(matrixStack, this.x + this.width + 50, this.y + 18, 0, 0, 16, 16, 16, 16);			
 		} else {
-			minecraft.getTextureManager().bindTexture(NONE);
+			minecraft.getTextureManager().bindTexture(Main.NONE);
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 			blit(matrixStack, this.x + this.width + 34, this.y + 18, 0, 0, 32, 16, 32, 16);	
 		}
