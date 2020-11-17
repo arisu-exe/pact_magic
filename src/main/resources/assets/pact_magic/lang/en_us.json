@@ -1,7 +1,9 @@
 {
 	"item.pact_magic.book_of_angels" : "Book of Angels",
-	
 	"item.pact_magic.book_of_demons" : "Book of Demons",
+	
+	"item.pact_magic.angel_page" : "Angel Page",
+	"item.pact_magic.demon_page" : "Demon Page",
 	
 	
 	
@@ -42,9 +44,15 @@
 	"advancements.pact_magic.root.title" : "Pact Magic",
 	"advancements.pact_magic.root.description" : "Download Pact Magic",
 	
-	"advancements.pact_magic.obtain_book_of_angels.title" : "All the Angels",
+	"advancements.pact_magic.obtain_book_of_angels.title" : "You're An Angel",
 	"advancements.pact_magic.obtain_book_of_angels.description" : "Obtain the Book of Angels",
 	
+	"advancements.pact_magic.fill_book_of_angels.title" : "All the Angels",
+	"advancements.pact_magic.fill_book_of_angels.description" : "Find all of the Angel Pages",
+	
 	"advancements.pact_magic.obtain_book_of_demons.title" : "Demonic",
-	"advancements.pact_magic.obtain_book_of_demons.description" : "Obtain the Book of Demons"
+	"advancements.pact_magic.obtain_book_of_demons.description" : "Obtain the Book of Demons",
+	
+	"advancements.pact_magic.fill_book_of_demons.title" : "Gotta Catch 'em All",
+	"advancements.pact_magic.fill_book_of_demons.description" : "Find all of the Demon Pages"
 }
