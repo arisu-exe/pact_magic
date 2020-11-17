@@ -1,0 +1,39 @@
+{
+  "parent": "pact_magic:pact_magic/obtain_book_of_demons",
+  "display": {
+    "icon": {
+      "item": "pact_magic:book_of_demons"
+    },
+    "title": {
+      "translate": "advancements.pact_magic.fill_book_of_demons.title"
+    },
+    "description": {
+      "translate": "advancements.pact_magic.fill_book_of_demons.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 50
+  },
+  "criteria": {
+    "book_of_demons": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "pact_magic:book_of_demons",
+			"nbt" : "{satan:true,beelzebub:true,astaroth:true,abaddon:true,mammon:true,admodeus:true,pytho:true,belial:true,merihem:true}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "book_of_demons"
+    ]
+  ]
+}

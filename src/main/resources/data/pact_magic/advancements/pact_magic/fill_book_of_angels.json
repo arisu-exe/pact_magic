@@ -1,0 +1,39 @@
+{
+  "parent": "pact_magic:pact_magic/obtain_book_of_angels",
+  "display": {
+    "icon": {
+      "item": "pact_magic:book_of_angels"
+    },
+    "title": {
+      "translate": "advancements.pact_magic.fill_book_of_angels.title"
+    },
+    "description": {
+      "translate": "advancements.pact_magic.fill_book_of_angels.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 50
+  },
+  "criteria": {
+    "book_of_angels": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "pact_magic:book_of_angels",
+			"nbt" : "{seraphim:true,cherubim:true,thrones:true,dominions:true,virtues:true,powers:true,principalities:true,archangels:true,angels:true}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "book_of_angels"
+    ]
+  ]
+}

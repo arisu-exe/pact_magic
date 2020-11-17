@@ -2,7 +2,7 @@
   "parent": "pact_magic:pact_magic/root",
   "display": {
     "icon": {
-      "item": "pact_magic:book_of_angels"
+      "item": "pact_magic:angel_page"
     },
     "title": {
       "translate": "advancements.pact_magic.obtain_book_of_angels.title"
