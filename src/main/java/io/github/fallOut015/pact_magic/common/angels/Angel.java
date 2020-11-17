@@ -1,5 +1,6 @@
 package io.github.fallOut015.pact_magic.common.angels;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -130,5 +131,8 @@ public abstract class Angel {
 	
 	public static Angel fromID(String key) {
 		return ID_MAP.get(key);
+	}
+	public static Collection<Angel> angels() {
+		return ID_MAP.values();
 	}
 }

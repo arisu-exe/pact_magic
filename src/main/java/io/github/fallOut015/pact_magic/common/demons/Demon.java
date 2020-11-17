@@ -1,5 +1,6 @@
 package io.github.fallOut015.pact_magic.common.demons;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -117,5 +118,8 @@ public abstract class Demon {
 	
 	public static Demon fromID(String key) {
 		return ID_MAP.get(key);
+	}
+	public static Collection<Demon> demons() {
+		return ID_MAP.values();
 	}
 }
