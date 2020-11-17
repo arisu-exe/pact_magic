@@ -15,6 +15,7 @@ import io.github.fallOut015.pact_magic.common.angels.IToggleable;
 import io.github.fallOut015.pact_magic.common.capabilities.CapabilitiesPactMagic;
 import io.github.fallOut015.pact_magic.common.capabilities.PactMagic;
 import io.github.fallOut015.pact_magic.common.capabilities.PactMagicProvider;
+import io.github.fallOut015.pact_magic.common.demons.Demons;
 import io.github.fallOut015.pact_magic.entity.EntityTypePactMagic;
 import io.github.fallOut015.pact_magic.item.ItemsPactMagic;
 import io.github.fallOut015.pact_magic.item.crafting.RecipeSerializersPactMagic;
@@ -57,7 +58,10 @@ public class Main {
     public static final ResourceLocation BORDER = new ResourceLocation("pact_magic", "textures/gui/border.png");
     public static final ResourceLocation ANGEL_INDICATOR = new ResourceLocation("pact_magic", "textures/gui/angel_indicator.png");
     public static final ResourceLocation DEMON_INDICATOR = new ResourceLocation("pact_magic", "textures/gui/demon_indicator.png");
-    
+	public static final ResourceLocation BUFF = new ResourceLocation("pact_magic", "textures/gui/buff.png");
+	public static final ResourceLocation DEBUFF = new ResourceLocation("pact_magic", "textures/gui/debuff.png");
+	public static final ResourceLocation NONE = new ResourceLocation("pact_magic", "textures/gui/none.png");
+
     static @Nullable ServerPlayerEntity player;
     static double aw;
     static double ax;
@@ -95,6 +99,8 @@ public class Main {
     
     private void setup(final FMLCommonSetupEvent event) {
     	PacketHandlerPactMagic.setup(event);
+    	Angels.setup(event);
+    	Demons.setup(event);
     	CapabilitiesPactMagic.setup(event);
     }
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -262,6 +268,7 @@ public class Main {
     			Main.alt = false;
     		}
     	}
+    	
     	@SubscribeEvent
     	public static void onAttachCapabilities(final AttachCapabilitiesEvent<Entity> event) {
     		if(event.getObject() instanceof ServerPlayerEntity) {

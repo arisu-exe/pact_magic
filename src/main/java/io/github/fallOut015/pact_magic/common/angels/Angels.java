@@ -1,15 +1,31 @@
 package io.github.fallOut015.pact_magic.common.angels;
 
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+
 public class Angels {
-	public static final Angel SERAPHIM = new SeraphimAngel();
-	public static final Angel CHERUBIM = new CherubimAngel();
-	public static final Angel THRONES = new ThronesAngel();
+	public static Angel SERAPHIM;
+	public static Angel CHERUBIM;
+	public static Angel THRONES;
 
-	public static final Angel DOMINIONS = new DominionsAngel();
-	public static final Angel VIRTUES = new VirtuesAngel();
-	public static final Angel POWERS = new PowersAngel();
+	public static Angel DOMINIONS;
+	public static Angel VIRTUES;
+	public static Angel POWERS;
 
-	public static final Angel PRINCIPALITIES = new PrincipalitiesAngel();
-	public static final Angel ARCHANGELS = new ArchangelsAngel();
-	public static final Angel ANGELS = new AngelsAngel();
+	public static Angel PRINCIPALITIES;
+	public static Angel ARCHANGELS;
+	public static Angel ANGELS;
+	
+    public static void setup(final FMLCommonSetupEvent event) {
+    	SERAPHIM = new SeraphimAngel();
+		CHERUBIM = new CherubimAngel();
+		THRONES = new ThronesAngel();
+		
+		DOMINIONS = new DominionsAngel();
+		VIRTUES = new VirtuesAngel();
+		POWERS = new PowersAngel();
+		
+		PRINCIPALITIES = new PrincipalitiesAngel();
+		ARCHANGELS = new ArchangelsAngel();
+		ANGELS = new AngelsAngel();
+    }
 }

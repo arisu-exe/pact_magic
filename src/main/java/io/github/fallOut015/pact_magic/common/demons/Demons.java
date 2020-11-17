@@ -1,15 +1,31 @@
 package io.github.fallOut015.pact_magic.common.demons;
 
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+
 public class Demons {
-	public static final Demon SATAN = new SatanDemon(); // Imitators of Miracles
-	public static final Demon BEELZEBUB = new BeelzebubDemon(); // False Gods, Idolaters // Seraphim
-	public static final Demon ASTAROTH = new AstarothDemon(); // fraduelent accuser
+	public static Demon SATAN;
+	public static Demon BEELZEBUB;
+	public static Demon ASTAROTH; // fraduelent accuser
 
-	public static final Demon ABADDON = new AbaddonDemon(); // Furies, Sowers of Discord
-	public static final Demon MAMMON = new MammonDemon(); // Temptors and Ensarers
-	public static final Demon ASMODEUS = new AsmodeusDemon(); // Revenge
+	public static Demon ABADDON;
+	public static Demon MAMMON;
+	public static Demon ASMODEUS;
 
-	public static final Demon PYTHO = new PythoDemon(); // Lying
-	public static final Demon BELIAL = new BelialDemon(); // Inventors of Evil Things
-	public static final Demon MERIHEM = new MerihemDemon(); // Purveyors of Pestilence
+	public static Demon PYTHO; // Lying
+	public static Demon BELIAL;
+	public static Demon MERIHEM;
+	
+	public static void setup(final FMLCommonSetupEvent event) {
+		SATAN = new SatanDemon();
+		BEELZEBUB = new BeelzebubDemon();
+		ASTAROTH = new AstarothDemon();
+		
+		ABADDON = new AbaddonDemon();
+		MAMMON = new MammonDemon();
+		ASMODEUS = new AsmodeusDemon();
+		
+		PYTHO = new PythoDemon();
+		BELIAL = new BelialDemon();
+		MERIHEM = new MerihemDemon();
+    }
 }
