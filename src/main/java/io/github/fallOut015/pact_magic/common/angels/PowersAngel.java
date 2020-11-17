@@ -20,8 +20,4 @@ public class PowersAngel extends Angel implements IToggleable {
 	public boolean isOn() {
 		return this.allowed;
 	}
-	@Override
-	public boolean isOff() {
-		return !this.allowed;
-	}
 }
