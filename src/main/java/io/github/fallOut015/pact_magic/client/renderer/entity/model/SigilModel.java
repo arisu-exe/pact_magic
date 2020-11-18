@@ -4,20 +4,30 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import io.github.fallOut015.pact_magic.entity.effect.SigilEntity;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class SigilModel<T extends SigilEntity> extends EntityModel<T> {
 	ModelRenderer sigil;
 	
 	public SigilModel() {
+		super(RenderType::getEntityTranslucentCull);
+		
+		this.textureWidth = 128;
+		this.textureHeight = 64;
+		
 		this.sigil = new ModelRenderer(this);
-		this.sigil.addBox(-32, 0, -32, 64, 0, 64);
+		this.sigil.addBox(-32, 0, -32, 64, 0.0625f, 64);
+		this.sigil.setRotationPoint(0, 0, 0);
 	}
 	
 	@Override
 	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.sigil.rotateAngleY = ageInTicks / 2;
+		this.sigil.rotateAngleY = ageInTicks / 15;
 	}
 	@Override
 	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
