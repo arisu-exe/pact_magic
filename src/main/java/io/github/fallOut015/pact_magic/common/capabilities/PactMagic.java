@@ -72,6 +72,8 @@ public class PactMagic implements IPactMagic {
 	}
 	@Override
 	public void slotAngel(@Nullable Angel slottedAngel) {
+		// Return if Angel can't be slotted. 
+		
 		if(this.slottedAngel == slottedAngel) {
 			return;
 		}
@@ -85,6 +87,17 @@ public class PactMagic implements IPactMagic {
 	}
 	@Override
 	public void slotDemon(@Nullable Demon slottedDemon) {
+		// Return if Demon can't be slotted.
+//		for(ItemStack itemStackIn : slottedDemon.getOffering().getMatchingStacks()) {
+//			if(!this.getPlayer().inventory.hasItemStack(itemStackIn)) {
+//				return;
+//			}
+//		}
+//		for(ItemStack stack : slottedDemon.getOffering().getMatchingStacks()) {
+//			// remove itemstacks matching
+//			this.getPlayer().inventory.deleteStack(stack);
+//		}
+		
 		if(this.slottedDemon == slottedDemon) {
 			return;
 		}
