@@ -14,7 +14,7 @@ public class MammonDemon extends Demon {
 	@Nullable MammonEntity mammon;
 
 	MammonDemon() {
-		super("mammon", 2, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.fromItems(Items.GOLD_INGOT, Items.GOLD_INGOT));
+		super("mammon", 2, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.fromItems(Items.GOLD_INGOT, Items.IRON_INGOT));
 	
 		this.mammon = null;
 	}

@@ -30,6 +30,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
@@ -163,7 +164,7 @@ public class Main {
 	    	        			event.getMatrixStack().pop();
     	        			}
     	        			
-    	        			minecraft.getTextureManager().bindTexture(new ResourceLocation("pact_magic", "textures/gui/angels/" + pactMagic.getSlottedAngel().getID() + ".png"));
+    	        			minecraft.getTextureManager().bindTexture(pactMagic.getSlottedAngel().getTexture());
     	        			AbstractGui.blit(event.getMatrixStack(), 16 + (int) Main.ax, 16 + (int) Main.ay, 0, 0, 32, 32, 32, 32);
     	    			
         	    			float cooldown = (float) pactMagic.getSlottedAngel().getTimer() / (float) pactMagic.getSlottedAngel().getCooldown();
@@ -208,7 +209,7 @@ public class Main {
 	    	        			event.getMatrixStack().pop();
     	        			}
     	    				
-    	        			minecraft.getTextureManager().bindTexture(new ResourceLocation("pact_magic", "textures/gui/demons/" + pactMagic.getSlottedDemon().getID() + ".png"));
+    	        			minecraft.getTextureManager().bindTexture(pactMagic.getSlottedDemon().getTexture());
     	        			AbstractGui.blit(event.getMatrixStack(), 80 + (int) Main.dx + modx, 16 + (int) Main.dy, 0, 0, 32, 32, 32, 32);
 
         	    			minecraft.getTextureManager().bindTexture(BORDER);
@@ -304,4 +305,11 @@ public class Main {
         renderer.pos((double)(x + width), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
         Tessellator.getInstance().draw();
      }
+    public static double quad(double x, double xint2, double max, int exp, boolean clamp) {
+    	if(clamp) {
+        	return MathHelper.clamp(-max * Math.pow(((2 * x - xint2) / 2) / (xint2 / 2), exp) + max, 0 < max ? 0 : max, max > 0 ? max : 0);
+    	} else {
+        	return -max * Math.pow(((2 * x - xint2) / 2) / (xint2 / 2), exp) + max;
+    	}
+    }
 }

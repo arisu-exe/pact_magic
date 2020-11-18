@@ -11,6 +11,9 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3f;
 
 public class MammonRenderer extends EntityRenderer<MammonEntity> {
 	final MammonModel<MammonEntity> model;
@@ -29,7 +32,25 @@ public class MammonRenderer extends EntityRenderer<MammonEntity> {
 	public void render(MammonEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 		
+		matrixStackIn.push();
+		
+		float alpha = 1.0f;
+
+		if(entityIn.isCasting()) {
+			float x = entityIn.getAnimationFrames();
+			matrixStackIn.translate(0, -0.005f * (x - 35f) * x, 0);
+			matrixStackIn.rotate(new Quaternion(Vector3f.YN, 8 * x, true));
+			alpha = Math.max(0, -0.0125f * x + 1f);
+		} else {
+			matrixStackIn.translate(MathHelper.sin((float) entityIn.ticksExisted / 16f) * 0.5f, MathHelper.sin((float) entityIn.ticksExisted / 8f) * 0.25f, 0);
+		}
+		matrixStackIn.translate(0, 2f, 0);
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180.0f));
+		
 		IVertexBuilder vertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(TEXTURE));
-		this.model.render(matrixStackIn, vertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+		this.model.setRotationAngles(entityIn, 0, 0, entityIn.ticksExisted, 0, 0);
+		this.model.render(matrixStackIn, vertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, alpha);
+	
+		matrixStackIn.pop();
 	}
 }
