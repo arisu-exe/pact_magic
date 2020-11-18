@@ -24,14 +24,14 @@ public class BookOfDemonsItem extends Item {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		ItemStack itemStack = playerIn.getHeldItem(handIn);
+		ItemStack stack = playerIn.getHeldItem(handIn);
 		 
 		if(worldIn.isRemote) {
-			return ActionResult.resultSuccess(itemStack);
+			return ActionResult.resultSuccess(stack);
 		} else {
-			Minecraft.getInstance().displayGuiScreen(new BookOfDemonsScreen(playerIn));
+			Minecraft.getInstance().displayGuiScreen(new BookOfDemonsScreen(playerIn, stack));
 			playerIn.addStat(Stats.ITEM_USED.get(this));
-			return ActionResult.resultConsume(itemStack);
+			return ActionResult.resultConsume(stack);
 		}
 	}
 	@Override
