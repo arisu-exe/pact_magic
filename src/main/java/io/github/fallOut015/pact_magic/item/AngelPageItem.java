@@ -53,7 +53,7 @@ public class AngelPageItem extends Item {
 		
 		@Nullable Angel angel = getAngel(stack);
 		if(angel != null) {
-			tooltip.add(new TranslationTextComponent("gui." + angel.getID() + ".title").mergeStyle(TextFormatting.YELLOW, TextFormatting.ITALIC));
+			tooltip.add(new TranslationTextComponent("gui." + angel.getID() + ".title").mergeStyle(TextFormatting.YELLOW));
 		}
 	}
 	@Override

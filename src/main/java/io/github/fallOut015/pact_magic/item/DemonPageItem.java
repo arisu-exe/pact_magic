@@ -53,7 +53,7 @@ public class DemonPageItem extends Item {
 		
 		@Nullable Demon demon = getDemon(stack);
 		if(demon != null) {
-			tooltip.add(new TranslationTextComponent("gui." + demon.getID() + ".title").mergeStyle(TextFormatting.RED, TextFormatting.ITALIC));
+			tooltip.add(new TranslationTextComponent("gui." + demon.getID() + ".title").mergeStyle(TextFormatting.RED));
 		}
 	}
 	@Override
