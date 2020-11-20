@@ -54,5 +54,11 @@
 	"advancements.pact_magic.obtain_book_of_demons.description" : "Obtain the Book of Demons",
 	
 	"advancements.pact_magic.fill_book_of_demons.title" : "Gotta Catch 'em All",
-	"advancements.pact_magic.fill_book_of_demons.description" : "Find all of the Demon Pages"
+	"advancements.pact_magic.fill_book_of_demons.description" : "Find all of the Demon Pages",
+	
+	
+	
+	"entity.pact_magic.seraph" : "Seraph",
+	"entity.pact_magic.mammon" : "Mammon",
+	"entity.pact_magic.sigil" : "Sigil"
 }
