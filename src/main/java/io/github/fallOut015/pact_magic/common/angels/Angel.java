@@ -14,6 +14,8 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public abstract class Angel {
 	static final Map<String, Angel> ID_MAP = new HashMap<String, Angel>();
@@ -30,6 +32,7 @@ public abstract class Angel {
 	final ResourceLocation texture;
 	final ResourceLocation buff_texture;
 	@Nullable final ResourceLocation debuff_texture;
+	final ITextComponent translation_key;
 	
 	int timer;
 	@Nullable ServerPlayerEntity player;
@@ -48,6 +51,7 @@ public abstract class Angel {
 		} else {
 			this.debuff_texture = new ResourceLocation("pact_magic", "textures/gui/" + debuff.getAttributeName() + ".png");
 		}
+		this.translation_key = new TranslationTextComponent("gui." + id + ".title");
 		
 		ID_MAP.put(this.id, this);
 	}
@@ -114,6 +118,9 @@ public abstract class Angel {
 	}
 	@Nullable public final ResourceLocation getDebuffTexture() {
 		return this.debuff_texture;
+	}
+	public final ITextComponent getTranslationKey() {
+		return this.translation_key;
 	}
 	
 	public void tick() {
