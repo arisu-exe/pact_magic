@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[35,)"
 license="All rights reserved"
 issueTrackerURL="https://github.com/fallOut015/pact_magic/issues"
 [[mods]]
@@ -17,12 +17,12 @@ Adds new Angels and Demons to summon.
 [[dependencies.pact_magic]]
     modId="forge"
     mandatory=true
-    versionRange="[34,)"
+    versionRange="[35,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.pact_magic]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3]"
+    versionRange="[1.16.4,1.17)"
     ordering="NONE"
     side="BOTH"
