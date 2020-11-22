@@ -42,13 +42,13 @@ public class MammonRenderer extends EntityRenderer<MammonEntity> {
 			matrixStackIn.rotate(new Quaternion(Vector3f.YN, 8 * x, true));
 			alpha = Math.max(0, -0.0125f * x + 1f);
 		} else {
-			matrixStackIn.translate(MathHelper.sin((float) entityIn.ticksExisted / 16f) * 0.5f, MathHelper.sin((float) entityIn.ticksExisted / 8f) * 0.25f, 0);
+			matrixStackIn.translate(0, MathHelper.sin((float) entityIn.ticksExisted / 8f) * 0.25f, 0);
 		}
 		matrixStackIn.translate(0, 2f, 0);
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180.0f));
 		
 		IVertexBuilder vertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(TEXTURE));
-		this.model.setRotationAngles(entityIn, 0, 0, entityIn.ticksExisted, 0, 0);
+		this.model.setRotationAngles(entityIn, 0, 0, entityIn.ticksExisted, entityIn.getRotationYawHead(), 0);
 		this.model.render(matrixStackIn, vertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, alpha);
 	
 		matrixStackIn.pop();

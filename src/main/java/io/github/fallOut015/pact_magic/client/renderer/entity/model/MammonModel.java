@@ -59,6 +59,8 @@ public class MammonModel<T extends MammonEntity> extends EntityModel<T> {
 			this.leftArm.rotateAngleZ = 0;
 			this.rightArm.rotateAngleZ = 0;
 		}
+		
+		this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
 	}
 	@Override
 	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha){
