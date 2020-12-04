@@ -18,6 +18,18 @@
 	"gui.principalities.title" : "Principalities",
 	"gui.archangels.title" : "Archangels",
 	"gui.angels.title" : "Angels",
+
+	"gui.seraphim.desc" : "The closest to the throne of the God, Seraphim pledge to protect. They can evoke a Shield of Fire that burns anything that gets too close.",
+	"gui.cherubim.desc" : "Cherubim",
+	"gui.thrones.desc" : "At the bottom of the first sphere of heaven, Thrones are vehicles of God. They can bless someone with Wings of Flight that allow you to soar with the Angels.",
+
+	"gui.dominions.desc" : "A light to guide, the Dominions are holy. At a given time, they can give off a Flash of Light that will blind your foes.",
+	"gui.virtues.desc" : "The intervention of miracles comes through Virtues. They can give someone a Blessing that will allow them to power through even the fiercest of beasts.",
+	"gui.powers.desc" : "The soldiers of Heaven are the Powers. ",
+
+	"gui.principalities.desc" : "Guardians of everything sacred and good, Principalities stand their ground. They can depart from someone and guard a location, preventing entry from anything.",
+	"gui.archangels.desc" : "Archangels",
+	"gui.angels.desc" : "The lowest in all spheres, the Angels are the closest to humanity. A Guardian Angel can protect you from a few hits, given that they don't kill you.",
 	
 	"gui.slot_cost.angel" : "Slotting this Angel will cost %s Karma",
 	"gui.swap_cost.angel" : "Swapping this Angel will cost %s Karma",

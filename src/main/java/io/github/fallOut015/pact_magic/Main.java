@@ -2,6 +2,7 @@ package io.github.fallOut015.pact_magic;
 
 import javax.annotation.Nullable;
 
+import io.github.fallOut015.pact_magic.common.capabilities.IPactMagic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -279,7 +280,7 @@ public class Main {
     	}
     	@SubscribeEvent
     	public static void onPlayerTick(final PlayerTickEvent event) {
-    		event.player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> pactMagic.tick());
+    		event.player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(IPactMagic::tick);
     	}
     	@SubscribeEvent
     	public static void onLivingDamage(final LivingDamageEvent event) {
@@ -306,10 +307,11 @@ public class Main {
         Tessellator.getInstance().draw();
      }
     public static double quad(double x, double xint2, double max, int exp, boolean clamp) {
-    	if(clamp) {
-        	return MathHelper.clamp(-max * Math.pow(((2 * x - xint2) / 2) / (xint2 / 2), exp) + max, 0 < max ? 0 : max, max > 0 ? max : 0);
+		double v = -max * Math.pow(((2 * x - xint2) / 2) / (xint2 / 2), exp) + max;
+		if(clamp) {
+        	return MathHelper.clamp(v, 0 < max ? 0 : max, max > 0 ? max : 0);
     	} else {
-        	return -max * Math.pow(((2 * x - xint2) / 2) / (xint2 / 2), exp) + max;
+        	return v;
     	}
     }
 }

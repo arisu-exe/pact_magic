@@ -60,52 +60,6 @@ public class AngelButton extends Button {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		Minecraft minecraft = Minecraft.getInstance();
-		
-		// Background / border
-		minecraft.getTextureManager().bindTexture(Main.BORDER);
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
-		blit(matrixStack, this.x, this.y, 0, 0, this.width, this.height, this.width, this.height);
-		
-		// Image
-		FontRenderer fontrenderer = minecraft.fontRenderer;
-		minecraft.getTextureManager().bindTexture(this.slottedAngel.getTexture());
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
-		RenderSystem.enableDepthTest();
-		blit(matrixStack, this.x + 8, this.y + 8, 0, 0, this.width - 16, this.height - 16, this.width - 16, this.height - 16);
-		blit(matrixStack, this.x + 8, this.y + 8, 0, 0, this.width - 16, this.height - 16, this.width - 16, this.height - 16);
-		this.renderBg(matrixStack, minecraft, mouseX, mouseY);
-		int j = getFGColor();
-		
-		// Text
-		drawString(matrixStack, fontrenderer, this.getMessage(), this.x + this.width + 2, this.y + 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
-		
-		// Icons
-		minecraft.getTextureManager().bindTexture(this.slottedAngel.getBuffTexture());
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
-		blit(matrixStack, this.x + this.width + 2, this.y + 18, 0, 0, 16, 16, 16, 16);
-		
-		minecraft.getTextureManager().bindTexture(Main.BUFF);
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
-		blit(matrixStack, this.x + this.width + 18, this.y + 18, 0, 0, 16, 16, 16, 16);
-		
-		if(this.slottedAngel.getDebuffTexture() != null) {
-			minecraft.getTextureManager().bindTexture(this.slottedAngel.getDebuffTexture());
-			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
-			blit(matrixStack, this.x + this.width + 34, this.y + 18, 0, 0, 16, 16, 16, 16);
-			
-			minecraft.getTextureManager().bindTexture(Main.DEBUFF);
-			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
-			blit(matrixStack, this.x + this.width + 50, this.y + 18, 0, 0, 16, 16, 16, 16);			
-		} else {
-			minecraft.getTextureManager().bindTexture(Main.NONE);
-			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
-			blit(matrixStack, this.x + this.width + 34, this.y + 18, 0, 0, 32, 16, 32, 16);	
-		}
-		
-		// Tooltip
 		if(this.isHovered()) {
 			this.renderToolTip(matrixStack, mouseX, mouseY);
 		}

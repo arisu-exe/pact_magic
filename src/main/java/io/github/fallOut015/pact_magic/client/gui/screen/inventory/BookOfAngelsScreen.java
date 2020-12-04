@@ -3,8 +3,10 @@ package io.github.fallOut015.pact_magic.client.gui.screen.inventory;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import io.github.fallOut015.pact_magic.Main;
 import io.github.fallOut015.pact_magic.common.angels.Angel;
 import io.github.fallOut015.pact_magic.common.angels.Angels;
+import io.github.fallOut015.pact_magic.item.BookOfAngelsItem;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.ReadBookScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -12,6 +14,9 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -37,17 +42,30 @@ public class BookOfAngelsScreen extends Screen {
 	private final PlayerEntity player;
 	private final ItemStack stack;
 	
-	private AngelPage pageLeft;
-	private AngelPage pageRight;
+	private @Nullable AngelPage pageLeft;
+	private @Nullable AngelPage pageRight;
+	private final AngelPage[] pages;
 
 	public BookOfAngelsScreen(final PlayerEntity player, final ItemStack stack) {
 		super(BOOK_OF_ANGELS);
 		
 		this.player = player;
 		this.stack = stack;
-		
-		this.pageLeft = new AngelPage(Angels.SERAPHIM);
-		this.pageRight = new AngelPage(Angels.THRONES);
+
+		this.pages = new AngelPage[] {
+			new AngelPage(Angels.SERAPHIM),
+			new AngelPage(Angels.CHERUBIM),
+			new AngelPage(Angels.THRONES),
+			new AngelPage(Angels.DOMINIONS),
+			new AngelPage(Angels.VIRTUES),
+			new AngelPage(Angels.POWERS),
+			new AngelPage(Angels.PRINCIPALITIES),
+			new AngelPage(Angels.ARCHANGELS),
+			new AngelPage(Angels.ANGELS)
+		};
+
+		this.pageLeft = this.pages[0];
+		this.pageRight = this.pages[1];
 	}
 	
 	@Override
@@ -91,19 +109,13 @@ public class BookOfAngelsScreen extends Screen {
 		this.renderBackground(matrixStack);
 		
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		
-		this.minecraft.getTextureManager().bindTexture(ReadBookScreen.BOOK_TEXTURES);
-		int i = (int) ((this.width - 192f) * (0.75f / 4f));
-		int j = 2;
-		this.blit(matrixStack, i, 2, 0, 0, 192, 192);
 
-		this.pageLeft.render(this, matrixStack, i, j);
-		
-		this.minecraft.getTextureManager().bindTexture(ReadBookScreen.BOOK_TEXTURES);
-		i = (int) ((this.width - 192f) * (3.25f / 4f));
-		this.blit(matrixStack, i, 2, 0, 0, 192, 192);
-		
-		this.pageRight.render(this, matrixStack, i, j);
+		if(this.pageLeft != null) {
+			this.pageLeft.render(this, matrixStack, (this.width / 2) - 169, 2, true);
+		}
+		if(this.pageRight != null) {
+			this.pageRight.render(this, matrixStack, (this.width / 2) - 23, 2, false);
+		}
 
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 	}
@@ -119,10 +131,47 @@ public class BookOfAngelsScreen extends Screen {
 			this.slottedAngel = slottedAngel;
 		}
 		
-		public void render(BookOfAngelsScreen context, MatrixStack matrixStack, int x, int y) {
-//			drawString(matrixStack, context.minecraft.fontRenderer, this.slottedAngel.getTranslationKey(), x + 2, y + 2, y | MathHelper.ceil(1 * 255.0F) << 24);
-			context.minecraft.getTextureManager().bindTexture(this.slottedAngel.getTexture());
-			AbstractGui.blit(matrixStack, x + 60, y + 20, 0, 0, 64, 64, 64, 64);
+		public void render(BookOfAngelsScreen context, MatrixStack matrixStack, int x, int y, boolean left) {
+			if(BookOfAngelsItem.hasAngel(context.stack, this.slottedAngel)) {
+				// Background
+				matrixStack.push();
+				//if(left) {
+					//matrixStack.rotate(new Quaternion(Vector3f.YN, 180, true));
+				//}
+				context.minecraft.getTextureManager().bindTexture(ReadBookScreen.BOOK_TEXTURES);
+				blit(matrixStack, x, y, 0, 0, 192, 192); // 256, 256
+				matrixStack.pop();
+
+				// Text
+				context.minecraft.fontRenderer.func_243245_a(context.minecraft.fontRenderer.trimStringToWidth(this.slottedAngel.getTranslationKey(), 50).get(0));
+				drawString(matrixStack, context.minecraft.fontRenderer, this.slottedAngel.getTranslationKey(), x + 69, y + 12, 16777215);
+
+				drawString(matrixStack, context.minecraft.fontRenderer, this.slottedAngel.getDescKey(), x + 44, y + 112, 16777215);
+
+				// Images
+				context.minecraft.getTextureManager().bindTexture(this.slottedAngel.getTexture());
+				blit(matrixStack, x + 68, y + 28, 0, 0, 48, 48, 48, 48);
+
+				context.minecraft.getTextureManager().bindTexture(Main.BORDER);
+				blit(matrixStack, x + 60, y + 20, 0, 0, 64, 64, 64, 64);
+
+				context.minecraft.getTextureManager().bindTexture(this.slottedAngel.getBuffTexture());
+				blit(matrixStack, x + 64, y + 90, 0, 0, 16, 16, 16, 16);
+
+				context.minecraft.getTextureManager().bindTexture(Main.BUFF);
+				blit(matrixStack, x + 78, y + 90, 0, 0, 16, 16, 16, 16);
+
+				if(this.slottedAngel.getDebuffTexture() != null) {
+					context.minecraft.getTextureManager().bindTexture(this.slottedAngel.getDebuffTexture());
+					blit(matrixStack, x + 92, y + 90, 0, 0, 16, 16, 16, 16);
+
+					context.minecraft.getTextureManager().bindTexture(Main.DEBUFF);
+					blit(matrixStack, x + 106, y + 90, 0, 0, 16, 16, 16, 16);
+				} else {
+					context.minecraft.getTextureManager().bindTexture(Main.NONE);
+					blit(matrixStack, x + 78, y + 90, 0, 0, 32, 16, 32, 16);
+				}
+			}
 		}
 	}
 }

@@ -33,6 +33,7 @@ public abstract class Angel {
 	final ResourceLocation buff_texture;
 	@Nullable final ResourceLocation debuff_texture;
 	final ITextComponent translation_key;
+	final ITextComponent desc_key;
 	
 	int timer;
 	@Nullable ServerPlayerEntity player;
@@ -52,7 +53,8 @@ public abstract class Angel {
 			this.debuff_texture = new ResourceLocation("pact_magic", "textures/gui/" + debuff.getAttributeName() + ".png");
 		}
 		this.translation_key = new TranslationTextComponent("gui." + id + ".title");
-		
+		this.desc_key = new TranslationTextComponent("gui." + id + ".desc");
+
 		ID_MAP.put(this.id, this);
 	}
 	
@@ -121,6 +123,9 @@ public abstract class Angel {
 	}
 	public final ITextComponent getTranslationKey() {
 		return this.translation_key;
+	}
+	public final ITextComponent getDescKey() {
+		return this.desc_key;
 	}
 	
 	public void tick() {
