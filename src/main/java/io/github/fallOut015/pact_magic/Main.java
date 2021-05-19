@@ -59,12 +59,12 @@ public class Main {
 	public static final String MODID = "pact_magic";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public static final ResourceLocation BORDER = new ResourceLocation("pact_magic", "textures/gui/border.png");
-    public static final ResourceLocation ANGEL_INDICATOR = new ResourceLocation("pact_magic", "textures/gui/angel_indicator.png");
-    public static final ResourceLocation DEMON_INDICATOR = new ResourceLocation("pact_magic", "textures/gui/demon_indicator.png");
-	public static final ResourceLocation BUFF = new ResourceLocation("pact_magic", "textures/gui/buff.png");
-	public static final ResourceLocation DEBUFF = new ResourceLocation("pact_magic", "textures/gui/debuff.png");
-	public static final ResourceLocation NONE = new ResourceLocation("pact_magic", "textures/gui/none.png");
+    public static final ResourceLocation BORDER = new ResourceLocation(Main.MODID, "textures/gui/border.png");
+    public static final ResourceLocation ANGEL_INDICATOR = new ResourceLocation(Main.MODID, "textures/gui/angel_indicator.png");
+    public static final ResourceLocation DEMON_INDICATOR = new ResourceLocation(Main.MODID, "textures/gui/demon_indicator.png");
+	public static final ResourceLocation BUFF = new ResourceLocation(Main.MODID, "textures/gui/buff.png");
+	public static final ResourceLocation DEBUFF = new ResourceLocation(Main.MODID, "textures/gui/debuff.png");
+	public static final ResourceLocation NONE = new ResourceLocation(Main.MODID, "textures/gui/none.png");
 
     static @Nullable ServerPlayerEntity player;
     static double aw;
@@ -276,7 +276,7 @@ public class Main {
     	@SubscribeEvent
     	public static void onAttachCapabilities(final AttachCapabilitiesEvent<Entity> event) {
     		if(event.getObject() instanceof ServerPlayerEntity) {
-    			event.addCapability(new ResourceLocation("pact_magic", event.getObject().getUUID().toString()), new PactMagicProvider(new PactMagic((ServerPlayerEntity) event.getObject())));
+    			event.addCapability(new ResourceLocation(Main.MODID, event.getObject().getUUID().toString()), new PactMagicProvider(new PactMagic((ServerPlayerEntity) event.getObject())));
     			Main.player = (ServerPlayerEntity) event.getObject();
     		}
     	}
