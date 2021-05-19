@@ -7,7 +7,7 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class SatanDemon extends Demon {
 	SatanDemon() {
-		super("satan", 3, Attributes.ATTACK_DAMAGE, Attributes.MAX_HEALTH, false, () -> Ingredient.fromItems(Items.FLINT_AND_STEEL, Items.TORCH, Items.IRON_SWORD));
+		super("satan", 3, Attributes.ATTACK_DAMAGE, Attributes.MAX_HEALTH, false, () -> Ingredient.of(Items.FLINT_AND_STEEL, Items.TORCH, Items.IRON_SWORD));
 	}
 
 	@Override

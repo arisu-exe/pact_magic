@@ -11,6 +11,7 @@ import io.github.fallOut015.pact_magic.item.ItemsPactMagic;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.nbt.CompoundNBT;
@@ -28,8 +29,8 @@ public class BookOfAngelsRecipe extends SpecialRecipe {
 		List<ItemStack> angelBooks = new LinkedList<ItemStack>();
 		ItemStack book = ItemStack.EMPTY;
 		
-		for(int i = 0; i < inv.getSizeInventory(); ++ i) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for(int i = 0; i < inv.getContainerSize(); ++ i) {
+			ItemStack stack = inv.getItem(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() == ItemsPactMagic.ANGEL_PAGE.get()) {
 					pages.add(stack);
@@ -56,7 +57,7 @@ public class BookOfAngelsRecipe extends SpecialRecipe {
 		}
 	}
 	@Override
-	public ItemStack getCraftingResult(CraftingInventory inv) {
+	public ItemStack assemble(CraftingInventory inv) {
 		// Three types
 		/*
 		 * PageN + Book (put pages into a book)
@@ -68,8 +69,8 @@ public class BookOfAngelsRecipe extends SpecialRecipe {
 		List<ItemStack> angelBooks = new LinkedList<ItemStack>();
 		ItemStack book = ItemStack.EMPTY;
 		
-		for(int i = 0; i < inv.getSizeInventory(); ++ i) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for(int i = 0; i < inv.getContainerSize(); ++ i) {
+			ItemStack stack = inv.getItem(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() == ItemsPactMagic.ANGEL_PAGE.get()) {
 					pages.add(stack);
@@ -90,7 +91,7 @@ public class BookOfAngelsRecipe extends SpecialRecipe {
 		if(angelBooks.size() > 1) {
 			if(pages.isEmpty() && book.isEmpty()) {
 				for(ItemStack angelBook : angelBooks) {
-					for(String key : angelBook.getOrCreateTag().keySet()) {
+					for(String key : angelBook.getOrCreateTag().getAllKeys()) {
 						nbt.putBoolean(key, angelBook.getTag().getBoolean(key));
 					}
 				}
@@ -105,7 +106,7 @@ public class BookOfAngelsRecipe extends SpecialRecipe {
 						}
 					}
 					for(ItemStack angelBook : angelBooks) {
-						for(String key : angelBook.getOrCreateTag().keySet()) {
+						for(String key : angelBook.getOrCreateTag().getAllKeys()) {
 							nbt.putBoolean(key, angelBook.getTag().getBoolean(key));
 						}
 					}
@@ -127,7 +128,7 @@ public class BookOfAngelsRecipe extends SpecialRecipe {
 		return stack;
 	}
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return true;
 	}
 	@Override

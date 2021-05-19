@@ -43,12 +43,12 @@ public class DemonButton extends Button {
 			if(button instanceof DemonButton) {
 				player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
 					if(pactMagic.getSlottedDemon() == slottedDemon) {
-						screen.renderTooltip(stack, screen.getMinecraft().fontRenderer.trimStringToWidth(UNSLOT.apply(slottedDemon.getRank()), 200), x1, y1);
+						screen.renderTooltip(stack, screen.getMinecraft().font.split(UNSLOT.apply(slottedDemon.getRank()), 200), x1, y1);
 					} else if(pactMagic.getSlottedDemon() == null) {
-						screen.renderTooltip(stack, screen.getMinecraft().fontRenderer.trimStringToWidth(SLOT.apply(slottedDemon.getRank()), 200), x1, y1);
+						screen.renderTooltip(stack, screen.getMinecraft().font.split(SLOT.apply(slottedDemon.getRank()), 200), x1, y1);
 						// And offering
 					} else {
-						screen.renderTooltip(stack, screen.getMinecraft().fontRenderer.trimStringToWidth(SWAP.apply(slottedDemon.getRank()), 200), x1, y1);
+						screen.renderTooltip(stack, screen.getMinecraft().font.split(SWAP.apply(slottedDemon.getRank()), 200), x1, y1);
 						// And offering
 					}
 				});
@@ -65,13 +65,13 @@ public class DemonButton extends Button {
 		Minecraft minecraft = Minecraft.getInstance();
 		
 		// Background / border
-		minecraft.getTextureManager().bindTexture(Main.BORDER);
+		minecraft.getTextureManager().bind(Main.BORDER);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		blit(matrixStack, this.x, this.y, 0, 0, this.width, this.height, this.width, this.height);
 		
 		// Image
-		FontRenderer fontrenderer = minecraft.fontRenderer;
-		minecraft.getTextureManager().bindTexture(this.slottedDemon.getTexture());
+		FontRenderer fontrenderer = minecraft.font;
+		minecraft.getTextureManager().bind(this.slottedDemon.getTexture());
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
@@ -85,24 +85,24 @@ public class DemonButton extends Button {
 		drawString(matrixStack, fontrenderer, this.getMessage(), this.x + this.width + 2, this.y + 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
 		
 		// Icons
-		minecraft.getTextureManager().bindTexture(this.slottedDemon.getBuffTexture());
+		minecraft.getTextureManager().bind(this.slottedDemon.getBuffTexture());
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		blit(matrixStack, this.x + this.width + 2, this.y + 18, 0, 0, 16, 16, 16, 16);
 		
-		minecraft.getTextureManager().bindTexture(Main.BUFF);
+		minecraft.getTextureManager().bind(Main.BUFF);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		blit(matrixStack, this.x + this.width + 18, this.y + 18, 0, 0, 16, 16, 16, 16);
 		
 		if(this.slottedDemon.getDebuffTexture() != null) {
-			minecraft.getTextureManager().bindTexture(this.slottedDemon.getDebuffTexture());
+			minecraft.getTextureManager().bind(this.slottedDemon.getDebuffTexture());
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 			blit(matrixStack, this.x + this.width + 34, this.y + 18, 0, 0, 16, 16, 16, 16);
 			
-			minecraft.getTextureManager().bindTexture(Main.DEBUFF);
+			minecraft.getTextureManager().bind(Main.DEBUFF);
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 			blit(matrixStack, this.x + this.width + 50, this.y + 18, 0, 0, 16, 16, 16, 16);			
 		} else {
-			minecraft.getTextureManager().bindTexture(Main.NONE);
+			minecraft.getTextureManager().bind(Main.NONE);
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 			blit(matrixStack, this.x + this.width + 34, this.y + 18, 0, 0, 32, 16, 32, 16);	
 		}

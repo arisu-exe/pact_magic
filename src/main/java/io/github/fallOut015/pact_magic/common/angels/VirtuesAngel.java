@@ -25,7 +25,7 @@ public class VirtuesAngel extends Angel {
 		}
 		
 		int index = new Random().nextInt(effects.size() + 1);
-		t.addPotionEffect(new EffectInstance(effects.get(index), 1000, 0, false, true));
+		t.addEffect(new EffectInstance(effects.get(index), 1000, 0, false, true));
 		// Wish
 		// TODO a similar thing to a potion effect, a blessing. 1-to-1 with potions, but expires under a different condition (bad deeds)
 	}

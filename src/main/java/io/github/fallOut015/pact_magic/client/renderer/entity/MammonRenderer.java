@@ -25,32 +25,32 @@ public class MammonRenderer extends EntityRenderer<MammonEntity> {
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(MammonEntity entity) {
+	public ResourceLocation getTextureLocation(MammonEntity entity) {
 		return TEXTURE;
 	}
 	@Override
 	public void render(MammonEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 		
-		matrixStackIn.push();
+		matrixStackIn.pushPose();
 		
 		float alpha = 1.0f;
 
 		if(entityIn.isCasting()) {
 			float x = entityIn.getAnimationFrames();
 			matrixStackIn.translate(0, -0.005f * (x - 35f) * x, 0);
-			matrixStackIn.rotate(new Quaternion(Vector3f.YN, 8 * x, true));
+			matrixStackIn.mulPose(new Quaternion(Vector3f.YN, 8 * x, true));
 			alpha = Math.max(0, -0.0125f * x + 1f);
 		} else {
-			matrixStackIn.translate(0, MathHelper.sin((float) entityIn.ticksExisted / 8f) * 0.25f, 0);
+			matrixStackIn.translate(0, MathHelper.sin((float) entityIn.tickCount / 8f) * 0.25f, 0);
 		}
 		matrixStackIn.translate(0, 2f, 0);
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180.0f));
+        matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(180.0f));
 		
-		IVertexBuilder vertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(TEXTURE));
-		this.model.setRotationAngles(entityIn, 0, 0, entityIn.ticksExisted, entityIn.getRotationYawHead(), 0);
-		this.model.render(matrixStackIn, vertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, alpha);
+		IVertexBuilder vertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(TEXTURE));
+		this.model.setupAnim(entityIn, 0, 0, entityIn.tickCount, entityIn.getYHeadRot(), 0);
+		this.model.renderToBuffer(matrixStackIn, vertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, alpha);
 	
-		matrixStackIn.pop();
+		matrixStackIn.popPose();
 	}
 }

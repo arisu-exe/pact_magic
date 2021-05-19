@@ -22,6 +22,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
+
 @OnlyIn(Dist.CLIENT)
 public class BookOfAngelsScreen extends Screen {
 	private static final ITextComponent BOOK_OF_ANGELS = new TranslationTextComponent("gui.book_of_angels");
@@ -134,41 +136,41 @@ public class BookOfAngelsScreen extends Screen {
 		public void render(BookOfAngelsScreen context, MatrixStack matrixStack, int x, int y, boolean left) {
 			if(BookOfAngelsItem.hasAngel(context.stack, this.slottedAngel)) {
 				// Background
-				matrixStack.push();
+				matrixStack.pushPose();
 				//if(left) {
 					//matrixStack.rotate(new Quaternion(Vector3f.YN, 180, true));
 				//}
-				context.minecraft.getTextureManager().bindTexture(ReadBookScreen.BOOK_TEXTURES);
+				context.minecraft.getTextureManager().bind(ReadBookScreen.BOOK_LOCATION);
 				blit(matrixStack, x, y, 0, 0, 192, 192); // 256, 256
-				matrixStack.pop();
+				matrixStack.popPose();
 
 				// Text
-				context.minecraft.fontRenderer.func_243245_a(context.minecraft.fontRenderer.trimStringToWidth(this.slottedAngel.getTranslationKey(), 50).get(0));
-				drawString(matrixStack, context.minecraft.fontRenderer, this.slottedAngel.getTranslationKey(), x + 69, y + 12, 16777215);
+				context.minecraft.font.width(context.minecraft.font.split(this.slottedAngel.getTranslationKey(), 50).get(0));
+				drawString(matrixStack, context.minecraft.font, this.slottedAngel.getTranslationKey(), x + 69, y + 12, 16777215);
 
-				drawString(matrixStack, context.minecraft.fontRenderer, this.slottedAngel.getDescKey(), x + 44, y + 112, 16777215);
+				//drawString(matrixStack, context.minecraft.fontRenderer, this.slottedAngel.getDescKey(), x + 44, y + 112, 16777215);
 
 				// Images
-				context.minecraft.getTextureManager().bindTexture(this.slottedAngel.getTexture());
+				context.minecraft.getTextureManager().bind(this.slottedAngel.getTexture());
 				blit(matrixStack, x + 68, y + 28, 0, 0, 48, 48, 48, 48);
 
-				context.minecraft.getTextureManager().bindTexture(Main.BORDER);
+				context.minecraft.getTextureManager().bind(Main.BORDER);
 				blit(matrixStack, x + 60, y + 20, 0, 0, 64, 64, 64, 64);
 
-				context.minecraft.getTextureManager().bindTexture(this.slottedAngel.getBuffTexture());
+				context.minecraft.getTextureManager().bind(this.slottedAngel.getBuffTexture());
 				blit(matrixStack, x + 64, y + 90, 0, 0, 16, 16, 16, 16);
 
-				context.minecraft.getTextureManager().bindTexture(Main.BUFF);
+				context.minecraft.getTextureManager().bind(Main.BUFF);
 				blit(matrixStack, x + 78, y + 90, 0, 0, 16, 16, 16, 16);
 
 				if(this.slottedAngel.getDebuffTexture() != null) {
-					context.minecraft.getTextureManager().bindTexture(this.slottedAngel.getDebuffTexture());
+					context.minecraft.getTextureManager().bind(this.slottedAngel.getDebuffTexture());
 					blit(matrixStack, x + 92, y + 90, 0, 0, 16, 16, 16, 16);
 
-					context.minecraft.getTextureManager().bindTexture(Main.DEBUFF);
+					context.minecraft.getTextureManager().bind(Main.DEBUFF);
 					blit(matrixStack, x + 106, y + 90, 0, 0, 16, 16, 16, 16);
 				} else {
-					context.minecraft.getTextureManager().bindTexture(Main.NONE);
+					context.minecraft.getTextureManager().bind(Main.NONE);
 					blit(matrixStack, x + 78, y + 90, 0, 0, 32, 16, 32, 16);
 				}
 			}

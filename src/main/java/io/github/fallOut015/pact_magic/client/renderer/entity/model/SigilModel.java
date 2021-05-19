@@ -15,22 +15,22 @@ public class SigilModel<T extends SigilEntity> extends EntityModel<T> {
 	ModelRenderer sigil;
 	
 	public SigilModel() {
-		super(RenderType::getEntityTranslucentCull);
+		super(RenderType::entityTranslucentCull);
 		
-		this.textureWidth = 128;
-		this.textureHeight = 64;
+		this.texWidth = 128;
+		this.texHeight = 64;
 		
 		this.sigil = new ModelRenderer(this);
 		this.sigil.addBox(-32, 0, -32, 64, 0.0625f, 64);
-		this.sigil.setRotationPoint(0, 0, 0);
+		this.sigil.setPos(0, 0, 0);
 	}
 	
 	@Override
-	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.sigil.rotateAngleY = ageInTicks / 15;
+	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.sigil.yRot = ageInTicks / 15;
 	}
 	@Override
-	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
 		this.sigil.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
 	}
 }

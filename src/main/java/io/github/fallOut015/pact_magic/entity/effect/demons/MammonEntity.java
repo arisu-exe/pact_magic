@@ -23,15 +23,15 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class MammonEntity extends Entity {
 	@Nullable ServerPlayerEntity caster;
-	static final DataParameter<Boolean> CASTING = EntityDataManager.createKey(MammonEntity.class, DataSerializers.BOOLEAN);
-	static final DataParameter<Integer> ANIMATION_FRAMES = EntityDataManager.createKey(MammonEntity.class, DataSerializers.VARINT);
+	static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(MammonEntity.class, DataSerializers.BOOLEAN);
+	static final DataParameter<Integer> ANIMATION_FRAMES = EntityDataManager.defineId(MammonEntity.class, DataSerializers.INT);
 	@Nullable SigilEntity[] sigils;
 	float headYawRotation;
 	
 	public MammonEntity(EntityType<? extends MammonEntity> entityTypeIn, World worldIn) {
 		super(entityTypeIn, worldIn);
 		
-		this.noClip = false;
+		this.noPhysics = false;
 		this.sigils = new SigilEntity[] {
 			null, null, null, null, null, null, null, null
 		};
@@ -46,7 +46,7 @@ public class MammonEntity extends Entity {
 		super.tick();
 		
 		if(this.isCasting()) {
-			this.dataManager.set(ANIMATION_FRAMES, this.getAnimationFrames() + 1);
+			this.entityData.set(ANIMATION_FRAMES, this.getAnimationFrames() + 1);
 			
 			boolean allnull = true;
 			for(int i = 0; i < this.sigils.length; ++ i) {
@@ -59,30 +59,30 @@ public class MammonEntity extends Entity {
 			}
 			if(allnull) {
 				this.stopCasting();
-				this.dataManager.set(ANIMATION_FRAMES, 0);
+				this.entityData.set(ANIMATION_FRAMES, 0);
 			}
 		}
 		
 		if(this.caster != null) {
 //			if(this.getDistance(this.caster) > 1.414) {
 				if(!this.isCasting()) {
-					this.setVelocity(10, 10, 10);
-					this.markVelocityChanged();
+					this.lerpMotion(10, 10, 10);
+					this.markHurt();
 				}
 //				this.setMotion(this.caster.getPositionVec().subtract(this.getPositionVec()));
 //			}
 			
 			if(this.isCasting()) {
-				this.setRotationYawHead(0);
+				this.setYHeadRot(0);
 			} else {
-				double dx = this.getPosX() - this.caster.getPosX();
-				double dy = this.getPosZ() - this.caster.getPosZ();
+				double dx = this.getX() - this.caster.getX();
+				double dy = this.getZ() - this.caster.getZ();
 				double d = (float) (MathHelper.atan2(dy, dx) * (double) (180F / (float) Math.PI)) + 90.0F;
 
-				float f = MathHelper.wrapSubtractDegrees(this.getRotationYawHead(), (float) d);
+				float f = MathHelper.degreesDifference(this.getYHeadRot(), (float) d);
 				float f1 = MathHelper.clamp(f, -10f, 10f);
 				
-				this.setRotationYawHead(MathHelper.lerp(0.5f, this.getRotationYawHead(), this.getRotationYawHead() + f1));
+				this.setYHeadRot(MathHelper.lerp(0.5f, this.getYHeadRot(), this.getYHeadRot() + f1));
 			}
 		}
 	}
@@ -91,20 +91,20 @@ public class MammonEntity extends Entity {
 		if(!this.isCasting() && this.caster != null) {
 			this.startCasting();
 			
-			if(this.getEntityWorld() instanceof ServerWorld) {
-				SigilEntity sigil = EntityTypePactMagic.SIGIL.get().spawn((ServerWorld) this.getEntityWorld(), null, null, this.caster, this.getPosition(), SpawnReason.MOB_SUMMONED, false, false);
+			if(this.getCommandSenderWorld() instanceof ServerWorld) {
+				SigilEntity sigil = EntityTypePactMagic.SIGIL.get().spawn((ServerWorld) this.getCommandSenderWorld(), null, null, this.caster, this.blockPosition(), SpawnReason.MOB_SUMMONED, false, false);
 				sigil.setMaxLife(50);
 				sigil.setIsEffect();
-				this.getEntityWorld().addEntity(sigil);
+				this.getCommandSenderWorld().addFreshEntity(sigil);
 				
 				for(int i = 0; i < 8; ++ i) {
-					double x = MathHelper.cos((float) Math.toRadians(i * 45)) * this.rand.nextFloat() * 8 + this.getPosX();
-					double z = MathHelper.sin((float) Math.toRadians(i * 45)) * this.rand.nextFloat() * 8 + this.getPosZ();
-					double y = this.getEntityWorld().getHeight(Type.WORLD_SURFACE, (int) x, (int) z);
-					SigilEntity sigil2 = EntityTypePactMagic.SIGIL.get().spawn((ServerWorld) this.getEntityWorld(), null, null, this.caster, new BlockPos(x, y, z), SpawnReason.MOB_SUMMONED, false, false);
+					double x = MathHelper.cos((float) Math.toRadians(i * 45)) * this.random.nextFloat() * 8 + this.getX();
+					double z = MathHelper.sin((float) Math.toRadians(i * 45)) * this.random.nextFloat() * 8 + this.getZ();
+					double y = this.getCommandSenderWorld().getHeight(Type.WORLD_SURFACE, (int) x, (int) z);
+					SigilEntity sigil2 = EntityTypePactMagic.SIGIL.get().spawn((ServerWorld) this.getCommandSenderWorld(), null, null, this.caster, new BlockPos(x, y, z), SpawnReason.MOB_SUMMONED, false, false);
 					sigil2.setMaxLife(400);
 					sigil2.setCaster(this.caster);
-					this.getEntityWorld().addEntity(sigil2);
+					this.getCommandSenderWorld().addFreshEntity(sigil2);
 					if(sigils[i] == null) {
 						sigils[i] = sigil2;
 					}
@@ -117,57 +117,57 @@ public class MammonEntity extends Entity {
 		super.onAddedToWorld();
 		
 		for(float i = 0; i < 360; i += 22.5) {
-			this.world.addParticle(ParticleTypes.FLAME, this.getPosX(), this.getPosY() + this.getHeight(), this.getPosZ(), MathHelper.cos((float) Math.toRadians(i)) / 10f, 0, MathHelper.sin((float) Math.toRadians(i)) / 10f);
+			this.level.addParticle(ParticleTypes.FLAME, this.getX(), this.getY() + this.getBbHeight(), this.getZ(), MathHelper.cos((float) Math.toRadians(i)) / 10f, 0, MathHelper.sin((float) Math.toRadians(i)) / 10f);
 		}
 	}
 	@Override
-	public float getRotationYawHead() {
+	public float getYHeadRot() {
 		return this.headYawRotation;
 	}
 	@Override
-	public void setRotationYawHead(float rotation) {
+	public void setYHeadRot(float rotation) {
 		this.headYawRotation = rotation;
 	}
 
 	void startCasting() {
-		this.dataManager.set(CASTING, true);
+		this.entityData.set(CASTING, true);
 	}
 	void stopCasting() {
-		this.dataManager.set(CASTING, false);
+		this.entityData.set(CASTING, false);
 	}
 	public boolean isCasting() {
-		return this.dataManager.get(CASTING).booleanValue();
+		return this.entityData.get(CASTING).booleanValue();
 	}
 	
 	public int getAnimationFrames() {
-		return this.dataManager.get(ANIMATION_FRAMES).intValue();
+		return this.entityData.get(ANIMATION_FRAMES).intValue();
 	}
 	
 	@Override
-	protected void registerData() {
-		this.dataManager.register(CASTING, false);
-		this.dataManager.register(ANIMATION_FRAMES, 0);
+	protected void defineSynchedData() {
+		this.entityData.define(CASTING, false);
+		this.entityData.define(ANIMATION_FRAMES, 0);
 	}
 	@Override
-	protected void readAdditional(CompoundNBT compound) {
-		this.dataManager.set(CASTING, compound.getBoolean("CASTING"));
-		this.dataManager.set(ANIMATION_FRAMES, compound.getInt("ANIMATION_FRAMES"));
+	protected void readAdditionalSaveData(CompoundNBT compound) {
+		this.entityData.set(CASTING, compound.getBoolean("CASTING"));
+		this.entityData.set(ANIMATION_FRAMES, compound.getInt("ANIMATION_FRAMES"));
 		
-		if(this.world.getPlayerByUuid(compound.getUniqueId("caster")) != null) {
-			this.caster = (ServerPlayerEntity) this.world.getPlayerByUuid(compound.getUniqueId("caster"));
+		if(this.level.getPlayerByUUID(compound.getUUID("caster")) != null) {
+			this.caster = (ServerPlayerEntity) this.level.getPlayerByUUID(compound.getUUID("caster"));
 		}
 	}
 	@Override
-	protected void writeAdditional(CompoundNBT compound) {
+	protected void addAdditionalSaveData(CompoundNBT compound) {
 		compound.putBoolean("CASTING", this.isCasting());
 		compound.putInt("ANIMATION_FRAMES", this.getAnimationFrames());
 		
 		if(this.caster != null) {
-			compound.putUniqueId("caster", this.caster.getUniqueID());
+			compound.putUUID("caster", this.caster.getUUID());
 		}
 	}
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public IPacket<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

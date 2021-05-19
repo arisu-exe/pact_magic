@@ -9,11 +9,15 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RecipeSerializersPactMagic {
-private static DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Main.MODID);
-	
+	private static DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Main.MODID);
+
+
+
 	public static RegistryObject<SpecialRecipeSerializer<BookOfAngelsRecipe>> BOOK_OF_ANGELS = RECIPE_SERIALIZERS.register("book_of_angels", () -> new SpecialRecipeSerializer<BookOfAngelsRecipe>(BookOfAngelsRecipe::new));
 	public static RegistryObject<SpecialRecipeSerializer<BookOfDemonsRecipe>> BOOK_OF_DEMONS = RECIPE_SERIALIZERS.register("book_of_demons", () -> new SpecialRecipeSerializer<BookOfDemonsRecipe>(BookOfDemonsRecipe::new));
-	
+
+
+
 	public static void register(IEventBus bus) {
 		RECIPE_SERIALIZERS.register(bus);
 	}

@@ -85,7 +85,7 @@ public class BookOfDemonsScreen extends Screen {
 		this.renderBackground(matrixStack);
 		
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.minecraft.getTextureManager().bindTexture(BOOK_OF_DEMONS_GUI_TEXTURE);
+		this.minecraft.getTextureManager().bind(BOOK_OF_DEMONS_GUI_TEXTURE);
 		AbstractGui.blit(matrixStack, 2, 2, 0, 0, 576, 592, 592, 592);
 		
 		super.render(matrixStack, mouseX, mouseY, partialTicks);

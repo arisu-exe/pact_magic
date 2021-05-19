@@ -25,18 +25,18 @@ public class SigilRenderer extends EntityRenderer<SigilEntity> {
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(SigilEntity entity) {
+	public ResourceLocation getTextureLocation(SigilEntity entity) {
 		return TEXTURE;
 	}
 	@Override
 	public void render(SigilEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-		this.model.setRotationAngles(entityIn, 0, 0, entityIn.ticksExisted, 0, 0);
-		matrixStackIn.push();
+		this.model.setupAnim(entityIn, 0, 0, entityIn.tickCount, 0, 0);
+		matrixStackIn.pushPose();
 		matrixStackIn.translate(0, 0.0625f, 0);
-		matrixStackIn.scale((float) entityIn.scale(entityIn.ticksExisted, entityIn.isEffect() ? 1 : 0.5, 2), 1f, (float) entityIn.scale(entityIn.ticksExisted, entityIn.isEffect() ? 1 : 0.5, 2));
-		IVertexBuilder vertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(TEXTURE));
-		this.model.render(matrixStackIn, vertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
-		matrixStackIn.pop();
+		matrixStackIn.scale((float) entityIn.scale(entityIn.tickCount, entityIn.isEffect() ? 1 : 0.5, 2), 1f, (float) entityIn.scale(entityIn.tickCount, entityIn.isEffect() ? 1 : 0.5, 2));
+		IVertexBuilder vertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(TEXTURE));
+		this.model.renderToBuffer(matrixStackIn, vertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+		matrixStackIn.popPose();
 	}
 }

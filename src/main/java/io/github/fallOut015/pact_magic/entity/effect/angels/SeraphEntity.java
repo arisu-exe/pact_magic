@@ -16,7 +16,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class SeraphEntity extends Entity {
 	@Nullable ServerPlayerEntity caster;
-	public static final DataParameter<Boolean> SHIELDING = EntityDataManager.createKey(SeraphEntity.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Boolean> SHIELDING = EntityDataManager.defineId(SeraphEntity.class, DataSerializers.BOOLEAN);
 	
 	public SeraphEntity(EntityType<? extends SeraphEntity> entityTypeIn, World worldIn) {
 		super(entityTypeIn, worldIn);
@@ -30,60 +30,60 @@ public class SeraphEntity extends Entity {
 ////			this.move(MoverType.SELF, this.caster.getPositionVec());
 //			this.setPosition(this.caster.getPosX(), this.caster.getPosY(), this.caster.getPosZ());
 			
-			if(this.world.isRemote/* && this.isShielding()*/) {
+			if(this.level.isClientSide/* && this.isShielding()*/) {
 				double x;
 				double y;
 				double z;
-				double rotation = this.ticksExisted * 2;
+				double rotation = this.tickCount * 2;
 				double size = 3;
 				
 				for(int i = 0; i < 360; i += 18) {
-					x = size * Math.cos(Math.toRadians(i + rotation)) + this.caster.getPosX();
-					y = size * Math.sin(Math.toRadians(i + rotation)) + this.caster.getPosY();
-					z = size * Math.sin(Math.toRadians(i)) + this.caster.getPosZ();
+					x = size * Math.cos(Math.toRadians(i + rotation)) + this.caster.getX();
+					y = size * Math.sin(Math.toRadians(i + rotation)) + this.caster.getY();
+					z = size * Math.sin(Math.toRadians(i)) + this.caster.getZ();
 					
-					this.world.addParticle(ParticleTypes.FLAME, x, y, z, 0, 0, 0);
+					this.level.addParticle(ParticleTypes.FLAME, x, y, z, 0, 0, 0);
 				}
 				for(int i = 0; i < 360; i += 18) {
-					x = size * Math.cos(Math.toRadians(i + rotation)) + this.caster.getPosX();
-					y = size * Math.sin(Math.toRadians(i)) + this.caster.getPosY();
-					z = size * Math.sin(Math.toRadians(i + rotation)) + this.caster.getPosZ();
+					x = size * Math.cos(Math.toRadians(i + rotation)) + this.caster.getX();
+					y = size * Math.sin(Math.toRadians(i)) + this.caster.getY();
+					z = size * Math.sin(Math.toRadians(i + rotation)) + this.caster.getZ();
 					
-					this.world.addParticle(ParticleTypes.FLAME, x, y, z, 0, 0, 0);
+					this.level.addParticle(ParticleTypes.FLAME, x, y, z, 0, 0, 0);
 				}
 				for(int i = 0; i < 360; i += 18) {
-					x = size * Math.sin(Math.toRadians(i)) + this.caster.getPosX();
-					y = size * Math.sin(Math.toRadians(i + rotation)) + this.caster.getPosY();
-					z = size * Math.cos(Math.toRadians(i + rotation)) + this.caster.getPosZ();
+					x = size * Math.sin(Math.toRadians(i)) + this.caster.getX();
+					y = size * Math.sin(Math.toRadians(i + rotation)) + this.caster.getY();
+					z = size * Math.cos(Math.toRadians(i + rotation)) + this.caster.getZ();
 					
-					this.world.addParticle(ParticleTypes.FLAME, x, y, z, 0, 0, 0);
+					this.level.addParticle(ParticleTypes.FLAME, x, y, z, 0, 0, 0);
 				}
 			}
 		}
 	}
 	
 	@Override
-	protected void registerData() {
-		this.dataManager.register(SHIELDING, false);
+	protected void defineSynchedData() {
+		this.entityData.define(SHIELDING, false);
 	}
 	@Override
-	protected void readAdditional(CompoundNBT compound) {
+	protected void readAdditionalSaveData(CompoundNBT compound) {
 		compound.putBoolean("SHIELDING", this.isShielding());
 	}
 	@Override
-	protected void writeAdditional(CompoundNBT compound) {
+	protected void addAdditionalSaveData(CompoundNBT compound) {
 		this.setShielding(compound.getBoolean("SHIELDING"));
 	}
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public IPacket<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 	
 	public boolean isShielding() {
-		return this.dataManager.get(SHIELDING);
+		return this.entityData.get(SHIELDING);
 	}
 	public void setShielding(boolean shielding) {
-		this.dataManager.set(SHIELDING, shielding);
+		this.entityData.set(SHIELDING, shielding);
 	}
 	public void setCaster(ServerPlayerEntity caster) {
 		this.caster = caster;

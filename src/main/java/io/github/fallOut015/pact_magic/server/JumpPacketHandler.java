@@ -27,9 +27,9 @@ public class JumpPacketHandler extends PacketHandlerPactMagic {
 	        
 	        sender.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
 	        	if(!sender.isOnGround() && !sender.isInWater() && pactMagic.getSlottedAngel() == Angels.CHERUBIM && pactMagic.getSlottedAngel().isPrepared() && ((IToggleable) pactMagic.getSlottedAngel()).isOn()) {
-	        		sender.setMotion(sender.getMotion().getX(), 0, sender.getMotion().getZ());
-		        	sender.jump();
-		        	sender.velocityChanged = true;
+	        		sender.setDeltaMovement(sender.getDeltaMovement().x(), 0, sender.getDeltaMovement().z());
+		        	sender.jumpFromGround();
+		        	sender.hurtMarked = true;
 
 		        	// TODO particle effects and stuff
 	        	}

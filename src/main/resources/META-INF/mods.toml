@@ -1,28 +1,28 @@
-modLoader="javafml"
-loaderVersion="[35,)"
+modLoader="javafml" #mandatory
+loaderVersion="[36,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license="All rights reserved"
-issueTrackerURL="https://github.com/fallOut015/pact_magic/issues"
-[[mods]]
-modId="pact_magic"
-version="${file.jarVersion}"
-displayName="Pact Magic"
-updateJSONURL="https://github.com/fallOut015/pact_magic/blob/master/src/main/resources/updateJSONURL.json"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/pact-magic"
-logoFile="logoFile.png"
-credits="Thanks to Mojang Studios, Forge, the people who's tutorials I followed, and the people who I call friends."
-authors="fallOut015"
+issueTrackerURL="https://github.com/fallOut015/pact_magic/issues" #optional
+[[mods]] #mandatory
+modId="pact_magic" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Pact Magic" #mandatory
+updateJSONURL="https://github.com/fallOut015/pact_magic/blob/master/src/main/resources/updateJSONURL.json" #optional
+displayURL="https://www.curseforge.com/minecraft/mc-mods/pact-magic" #optional
+logoFile="pact_magic.png" #optional
+credits="Thanks to Mojang Studios, Forge, the people who's tutorials I followed, and the people who I call friends" #optional
+authors="fallOut015" #optional
 description='''
 Adds new Angels and Demons to summon.
 '''
-[[dependencies.pact_magic]]
-    modId="forge"
-    mandatory=true
-    versionRange="[35,)"
+[[dependencies.pact_magic]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[36,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.pact_magic]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.4,1.17)"
+    versionRange="[1.16.5,1.17)"
     ordering="NONE"
     side="BOTH"

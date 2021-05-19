@@ -21,6 +21,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import net.minecraft.item.Item.Properties;
+
 public class AngelPageItem extends Item {
 	public AngelPageItem(Properties properties) {
 		super(properties);
@@ -34,8 +36,8 @@ public class AngelPageItem extends Item {
 	}
 	
 	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-		if(group == ItemGroup.MISC || group == ItemGroup.SEARCH) {
+	public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+		if(group == ItemGroupPactMagic.PACT_MAGIC || group == ItemGroup.TAB_SEARCH) {
 			for(Angel angel : Angel.angels()) {
 				ItemStack stack = new ItemStack(ItemsPactMagic.ANGEL_PAGE.get());
 				putAngel(stack, angel);
@@ -44,21 +46,21 @@ public class AngelPageItem extends Item {
 		}
 	}
 	@Override
-	public boolean hasEffect(ItemStack stack) {
+	public boolean isFoil(ItemStack stack) {
 		return true;
 	}
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		super.addInformation(stack, worldIn, tooltip, flagIn);
+	public void appendHoverText(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 		
 		@Nullable Angel angel = getAngel(stack);
 		if(angel != null) {
-			tooltip.add(new TranslationTextComponent("gui." + angel.getID() + ".title").mergeStyle(TextFormatting.YELLOW));
+			tooltip.add(new TranslationTextComponent("gui." + angel.getID() + ".title").withStyle(TextFormatting.YELLOW));
 		}
 	}
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		ItemStack stack = playerIn.getHeldItem(handIn);
+	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		ItemStack stack = playerIn.getItemInHand(handIn);
 		
 		Optional<IPactMagic> pactMagic = playerIn.getCapability(CapabilitiesPactMagic.PACT_MAGIC).resolve();
 		
@@ -70,12 +72,12 @@ public class AngelPageItem extends Item {
 				} else {
 					pactMagic.get().slotAngel(angel);
 				}
-				return ActionResult.resultSuccess(stack);
+				return ActionResult.success(stack);
 			} else {
-				return ActionResult.resultFail(stack);
+				return ActionResult.fail(stack);
 			}
 		} else {
-			return ActionResult.resultPass(stack);
+			return ActionResult.pass(stack);
 		}
 	}
 }

@@ -12,11 +12,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ItemsPactMagic {
 	private static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Main.MODID);
 	
-	public static RegistryObject<Item> BOOK_OF_ANGELS = ITEMS.register("book_of_angels", () -> new BookOfAngelsItem(new Item.Properties().group(ItemGroup.MISC).rarity(Rarity.UNCOMMON).maxStackSize(1)));
-	public static RegistryObject<Item> BOOK_OF_DEMONS = ITEMS.register("book_of_demons", () -> new BookOfDemonsItem(new Item.Properties().group(ItemGroup.MISC).rarity(RarityPactMagic.DEVILISH).maxStackSize(1)));
+	public static RegistryObject<Item> BOOK_OF_ANGELS = ITEMS.register("book_of_angels", () -> new BookOfAngelsItem(new Item.Properties().tab(ItemGroupPactMagic.PACT_MAGIC).rarity(Rarity.UNCOMMON).stacksTo(1)));
+	public static RegistryObject<Item> BOOK_OF_DEMONS = ITEMS.register("book_of_demons", () -> new BookOfDemonsItem(new Item.Properties().tab(ItemGroupPactMagic.PACT_MAGIC).rarity(RarityPactMagic.DEVILISH).stacksTo(1)));
 	
-	public static RegistryObject<Item> ANGEL_PAGE = ITEMS.register("angel_page", () -> new AngelPageItem(new Item.Properties().group(ItemGroup.MISC).rarity(Rarity.UNCOMMON).maxStackSize(1)));
-	public static RegistryObject<Item> DEMON_PAGE = ITEMS.register("demon_page", () -> new DemonPageItem(new Item.Properties().group(ItemGroup.MISC).rarity(RarityPactMagic.DEVILISH).maxStackSize(1)));
+	public static RegistryObject<Item> ANGEL_PAGE = ITEMS.register("angel_page", () -> new AngelPageItem(new Item.Properties().tab(ItemGroupPactMagic.PACT_MAGIC).rarity(Rarity.UNCOMMON).stacksTo(1)));
+	public static RegistryObject<Item> DEMON_PAGE = ITEMS.register("demon_page", () -> new DemonPageItem(new Item.Properties().tab(ItemGroupPactMagic.PACT_MAGIC).rarity(RarityPactMagic.DEVILISH).stacksTo(1)));
 	
 	public static void register(IEventBus bus) {
 		ITEMS.register(bus);

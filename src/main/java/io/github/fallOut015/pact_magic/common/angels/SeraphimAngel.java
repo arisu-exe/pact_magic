@@ -22,9 +22,9 @@ public class SeraphimAngel extends Angel {
 		super.onSlot(player);
 		
 		if(this.seraph == null) {
-			this.seraph = EntityTypePactMagic.SERAPH.get().spawn(player.getServerWorld(), null, null, player, player.getPosition(), SpawnReason.MOB_SUMMONED, false, false);
+			this.seraph = EntityTypePactMagic.SERAPH.get().spawn(player.getLevel(), null, null, player, player.blockPosition(), SpawnReason.MOB_SUMMONED, false, false);
 			this.seraph.setCaster(player);
-			player.getEntityWorld().addEntity(this.seraph);			
+			player.getCommandSenderWorld().addFreshEntity(this.seraph);			
 		}
 	}
 	@Override

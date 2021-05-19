@@ -22,14 +22,14 @@ public class SeraphRenderer extends EntityRenderer<SeraphEntity> {
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(SeraphEntity entity) {
+	public ResourceLocation getTextureLocation(SeraphEntity entity) {
 		return TEXTURE;
 	}
 	@Override
 	public void render(SeraphEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 		
-		IVertexBuilder vertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(TEXTURE));
-		this.model.render(matrixStackIn, vertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+		IVertexBuilder vertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(TEXTURE));
+		this.model.renderToBuffer(matrixStackIn, vertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
 	}
 }

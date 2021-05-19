@@ -3,6 +3,8 @@ package io.github.fallOut015.pact_magic;
 import javax.annotation.Nullable;
 
 import io.github.fallOut015.pact_magic.common.capabilities.IPactMagic;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -85,7 +87,7 @@ public class Main {
     	Main.control = false;
     	Main.alt = false;
     }
-    
+
     public Main() {
     	ItemsPactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
     	EntityTypePactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -128,7 +130,7 @@ public class Main {
     	    			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0f);
     	    			if(pactMagic.getSlottedAngel() != null) {
     	        			if(pactMagic.getSlottedAngel().isPrepared()) {
-    	        				if(!minecraft.isGamePaused()) {
+    	        				if(!minecraft.isPaused()) {
     	        					Main.aw += 0.05;    	        					
     	        				}
         	        			Main.ax = (Math.sin((Main.aw * Math.PI) / 4) * 4);
@@ -141,31 +143,31 @@ public class Main {
     	        			
     	        			if(pactMagic.getSlottedAngel() instanceof IToggleable) {
     	        				if(((IToggleable) pactMagic.getSlottedAngel()).isOn()) {
-    	        					event.getMatrixStack().push();
+    	        					event.getMatrixStack().pushPose();
     	    	        			RenderSystem.enableBlend();
     	    	    	            RenderSystem.defaultBlendFunc();
-    	    	        			minecraft.getTextureManager().bindTexture(ANGEL_INDICATOR);
+    	    	        			minecraft.getTextureManager().bind(ANGEL_INDICATOR);
     	            				event.getMatrixStack().translate(32, 32, 0);
-    	    	        			event.getMatrixStack().rotate(new Quaternion(Vector3f.ZN, (float) (2f * Main.aw * Math.PI), true));
+    	    	        			event.getMatrixStack().mulPose(new Quaternion(Vector3f.ZN, (float) (2f * Main.aw * Math.PI), true));
     	    	        			event.getMatrixStack().scale(1f + (float) Main.ay / 20, 1f + (float) Main.ay / 20, 1f);
     	    	        			AbstractGui.blit(event.getMatrixStack(), -20, -20, 0, 0, 40, 40, 40, 40);
     	    	        			RenderSystem.disableBlend();
-    	    	        			event.getMatrixStack().pop();
+    	    	        			event.getMatrixStack().popPose();
     	        				}
     	        			} else if(Main.control) {
-    	        				event.getMatrixStack().push();
+    	        				event.getMatrixStack().pushPose();
 	    	        			RenderSystem.enableBlend();
 	    	    	            RenderSystem.defaultBlendFunc();
-	    	        			minecraft.getTextureManager().bindTexture(ANGEL_INDICATOR);
+	    	        			minecraft.getTextureManager().bind(ANGEL_INDICATOR);
 	            				event.getMatrixStack().translate(32, 32, 0);
-	    	        			event.getMatrixStack().rotate(new Quaternion(Vector3f.ZN, (float) (2f * Main.aw * Math.PI), true));
+	    	        			event.getMatrixStack().mulPose(new Quaternion(Vector3f.ZN, (float) (2f * Main.aw * Math.PI), true));
 	    	        			event.getMatrixStack().scale(1f + (float) Main.ay / 20, 1f + (float) Main.ay / 20, 1f);
 	    	        			AbstractGui.blit(event.getMatrixStack(), -20, -20, 0, 0, 40, 40, 40, 40);
 	    	        			RenderSystem.disableBlend();
-	    	        			event.getMatrixStack().pop();
+	    	        			event.getMatrixStack().popPose();
     	        			}
     	        			
-    	        			minecraft.getTextureManager().bindTexture(pactMagic.getSlottedAngel().getTexture());
+    	        			minecraft.getTextureManager().bind(pactMagic.getSlottedAngel().getTexture());
     	        			AbstractGui.blit(event.getMatrixStack(), 16 + (int) Main.ax, 16 + (int) Main.ay, 0, 0, 32, 32, 32, 32);
     	    			
         	    			float cooldown = (float) pactMagic.getSlottedAngel().getTimer() / (float) pactMagic.getSlottedAngel().getCooldown();
@@ -176,13 +178,13 @@ public class Main {
         	    	            RenderSystem.enableBlend();
         	    	            RenderSystem.defaultBlendFunc();
         	    	            Tessellator tessellator1 = Tessellator.getInstance();
-        	    	            BufferBuilder bufferbuilder1 = tessellator1.getBuffer();
+        	    	            BufferBuilder bufferbuilder1 = tessellator1.getBuilder();
         	    	            Main.draw(bufferbuilder1, 14, 14 + (int) (38 * (1f - cooldown)), 35, (int) (38 * cooldown), 255, 255, 255, 128);
         	    	            RenderSystem.enableTexture();
         	    	            RenderSystem.enableDepthTest();
         	    			}
     	        			
-    	    				minecraft.getTextureManager().bindTexture(BORDER);
+    	    				minecraft.getTextureManager().bind(BORDER);
     	        			AbstractGui.blit(event.getMatrixStack(), 8, 8, 0, 0, 48, 48, 48, 48);
     	    			}
     	    			
@@ -191,29 +193,29 @@ public class Main {
     	    				if(pactMagic.getSlottedAngel() == null) {
     	    					modx = -64;
     	    				}
-    	    				if(!minecraft.isGamePaused()) {
+    	    				if(!minecraft.isPaused()) {
     	    					Main.dw += 0.05;    	        					
     	    				}
     	    				Main.dx = (int) (Math.sin((Main.dw * Math.PI) / 4) * 4);
     	    				Main.dy = (int) (Math.sin((Main.dw * Math.PI) / 2) * 2);
     	    				
     	    				if(Main.alt) {
-    	        				event.getMatrixStack().push();
+    	        				event.getMatrixStack().pushPose();
 	    	        			RenderSystem.enableBlend();
 	    	    	            RenderSystem.defaultBlendFunc();
-	    	        			minecraft.getTextureManager().bindTexture(DEMON_INDICATOR);
+	    	        			minecraft.getTextureManager().bind(DEMON_INDICATOR);
 	            				event.getMatrixStack().translate(96 + modx, 32, 0);
-	    	        			event.getMatrixStack().rotate(new Quaternion(Vector3f.ZN, (float) (2f * Main.dw * Math.PI), true));
+	    	        			event.getMatrixStack().mulPose(new Quaternion(Vector3f.ZN, (float) (2f * Main.dw * Math.PI), true));
 	    	        			event.getMatrixStack().scale(1f + (float) Main.dy / 20, 1f + (float) Main.dy / 20, 1f);
 	    	        			AbstractGui.blit(event.getMatrixStack(), -20, -20, 0, 0, 40, 40, 40, 40);
 	    	        			RenderSystem.disableBlend();
-	    	        			event.getMatrixStack().pop();
+	    	        			event.getMatrixStack().popPose();
     	        			}
     	    				
-    	        			minecraft.getTextureManager().bindTexture(pactMagic.getSlottedDemon().getTexture());
+    	        			minecraft.getTextureManager().bind(pactMagic.getSlottedDemon().getTexture());
     	        			AbstractGui.blit(event.getMatrixStack(), 80 + (int) Main.dx + modx, 16 + (int) Main.dy, 0, 0, 32, 32, 32, 32);
 
-        	    			minecraft.getTextureManager().bindTexture(BORDER);
+        	    			minecraft.getTextureManager().bind(BORDER);
     	        			AbstractGui.blit(event.getMatrixStack(), 72 + modx, 8, 0, 0, 48, 48, 48, 48);
     	    			}
     				});
@@ -252,7 +254,7 @@ public class Main {
     	@SubscribeEvent
     	@OnlyIn(Dist.CLIENT)
     	public static void onKeyInput(final InputEvent.KeyInputEvent event) {
-    		if(!Minecraft.getInstance().isGamePaused() && event.getKey() == GLFW.GLFW_KEY_SPACE && event.getAction() == GLFW.GLFW_PRESS) {
+    		if(!Minecraft.getInstance().isPaused() && event.getKey() == GLFW.GLFW_KEY_SPACE && event.getAction() == GLFW.GLFW_PRESS) {
     			PacketHandlerPactMagic.INSTANCE.sendToServer(new JumpPacketHandler());
     		}
     		
@@ -274,7 +276,7 @@ public class Main {
     	@SubscribeEvent
     	public static void onAttachCapabilities(final AttachCapabilitiesEvent<Entity> event) {
     		if(event.getObject() instanceof ServerPlayerEntity) {
-    			event.addCapability(new ResourceLocation("pact_magic", event.getObject().getUniqueID().toString()), new PactMagicProvider(new PactMagic((ServerPlayerEntity) event.getObject())));
+    			event.addCapability(new ResourceLocation("pact_magic", event.getObject().getUUID().toString()), new PactMagicProvider(new PactMagic((ServerPlayerEntity) event.getObject())));
     			Main.player = (ServerPlayerEntity) event.getObject();
     		}
     	}
@@ -287,7 +289,7 @@ public class Main {
     		if(event.getEntityLiving() instanceof ServerPlayerEntity) {
     			((ServerPlayerEntity) event.getEntityLiving()).getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
     				if(pactMagic.getSlottedAngel() == Angels.ANGELS && ((IToggleable) pactMagic.getSlottedAngel()).isOn()) {
-    					if(!event.getSource().canHarmInCreative()) {
+    					if(!event.getSource().isBypassInvul()) {
         					event.setCanceled(true);
         					pactMagic.slotAngel(null);
     					}
@@ -300,11 +302,11 @@ public class Main {
     // From ItemRenderer
     private static void draw(BufferBuilder renderer, int x, int y, int width, int height, int red, int green, int blue, int alpha) {
         renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        renderer.pos((double)(x + 0), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.pos((double)(x + 0), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.pos((double)(x + width), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.pos((double)(x + width), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
-        Tessellator.getInstance().draw();
+        renderer.vertex((double)(x + 0), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.vertex((double)(x + 0), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.vertex((double)(x + width), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.vertex((double)(x + width), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
+        Tessellator.getInstance().end();
      }
     public static double quad(double x, double xint2, double max, int exp, boolean clamp) {
 		double v = -max * Math.pow(((2 * x - xint2) / 2) / (xint2 / 2), exp) + max;

@@ -18,21 +18,21 @@ public class HaloModel extends Model {
 	public final ModelRenderer halo;
 
 	public HaloModel(Model base) {
-	    super(RenderType::getEntitySolid);
+	    super(RenderType::entitySolid);
 
-		textureWidth = 16;
-		textureHeight = 16;
+		texWidth = 16;
+		texHeight = 16;
 
 		halo = new ModelRenderer(base);
-		halo.setRotationPoint(0.0F, 24.0F, 0.0F);
-		halo.setTextureOffset(0, 0).addBox(-4.0F, -9.0F, -4.0F, 8.0F, 1.0F, 0.0F, 0.0F, false);
-		halo.setTextureOffset(0, 0).addBox(-4.0F, 7.0F, 4.0F, 8.0F, 1.0F, 0.0F, 0.0F, false);
-		halo.setTextureOffset(0, 0).addBox(4.0F, -1.0F, -4.0F, 0.0F, 1.0F, 8.0F, 0.0F, false);
-		halo.setTextureOffset(0, 0).addBox(-4.0F, -1.0F, -4.0F, 0.0F, 1.0F, 8.0F, 0.0F, false);
+		halo.setPos(0.0F, 24.0F, 0.0F);
+		halo.texOffs(0, 0).addBox(-4.0F, -11F, -4.0F, 8.0F, 1.0F, 0.0F, 0.0F, false);
+		halo.texOffs(0, 0).addBox(-4.0F, -1.0F, 4.0F, 8.0F, 1.0F, 0.0F, 0.0F, false);
+		halo.texOffs(0, 0).addBox(4.0F, -6.0F, -4.0F, 0.0F, 1.0F, 8.0F, 0.0F, false);
+		halo.texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 0.0F, 1.0F, 8.0F, 0.0F, false);
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		halo.render(matrixStack, buffer, packedLight, packedOverlay);
+	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+		halo.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }

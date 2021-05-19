@@ -31,7 +31,7 @@ public class RenderIconPacketHandler extends PacketHandlerPactMagic {
 	    ctx.get().enqueueWork(() -> {
 	    	Minecraft minecraft = Minecraft.getInstance();
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0f);
-			minecraft.getTextureManager().bindTexture(new ResourceLocation("pact_magic", "textures/gui/border.png"));
+			minecraft.getTextureManager().bind(new ResourceLocation("pact_magic", "textures/gui/border.png"));
 			AbstractGui.blit(new MatrixStack(), 8, 8, 0, 0, 48, 48, 48, 48);
 	    });
 	    

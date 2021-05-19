@@ -28,8 +28,8 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 		List<ItemStack> demonBooks = new LinkedList<ItemStack>();
 		ItemStack book = ItemStack.EMPTY;
 		
-		for(int i = 0; i < inv.getSizeInventory(); ++ i) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for(int i = 0; i < inv.getContainerSize(); ++ i) {
+			ItemStack stack = inv.getItem(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() == ItemsPactMagic.DEMON_PAGE.get()) {
 					pages.add(stack);
@@ -56,7 +56,7 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 		}
 	}
 	@Override
-	public ItemStack getCraftingResult(CraftingInventory inv) {
+	public ItemStack assemble(CraftingInventory inv) {
 		// Three types
 		/*
 		 * PageN + Book (put pages into a book)
@@ -68,8 +68,8 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 		List<ItemStack> demonBooks = new LinkedList<ItemStack>();
 		ItemStack book = ItemStack.EMPTY;
 		
-		for(int i = 0; i < inv.getSizeInventory(); ++ i) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for(int i = 0; i < inv.getContainerSize(); ++ i) {
+			ItemStack stack = inv.getItem(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() == ItemsPactMagic.DEMON_PAGE.get()) {
 					pages.add(stack);
@@ -90,7 +90,7 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 		if(demonBooks.size() > 1) {
 			if(pages.isEmpty() && book.isEmpty()) {
 				for(ItemStack demonBook : demonBooks) {
-					for(String key : demonBook.getOrCreateTag().keySet()) {
+					for(String key : demonBook.getOrCreateTag().getAllKeys()) {
 						nbt.putBoolean(key, demonBook.getTag().getBoolean(key));
 					}
 				}
@@ -105,7 +105,7 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 						}
 					}
 					for(ItemStack demonBook : demonBooks) {
-						for(String key : demonBook.getOrCreateTag().keySet()) {
+						for(String key : demonBook.getOrCreateTag().getAllKeys()) {
 							nbt.putBoolean(key, demonBook.getTag().getBoolean(key));
 						}
 					}
@@ -127,7 +127,7 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 		return stack;
 	}
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return true;
 	}
 	@Override

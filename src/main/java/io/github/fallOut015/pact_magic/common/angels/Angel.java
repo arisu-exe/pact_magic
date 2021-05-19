@@ -46,11 +46,11 @@ public abstract class Angel {
 		this.autoActivate = autoActivate;
 		this.cooldown = cooldown;
 		this.texture = new ResourceLocation("pact_magic", "textures/gui/angels/" + id + ".png");
-		this.buff_texture = new ResourceLocation("pact_magic", "textures/gui/" + buff.getAttributeName() + ".png");
+		this.buff_texture = new ResourceLocation("pact_magic", "textures/gui/" + buff.getDescriptionId() + ".png");
 		if(this.debuff == null) {
 			this.debuff_texture = null;
 		} else {
-			this.debuff_texture = new ResourceLocation("pact_magic", "textures/gui/" + debuff.getAttributeName() + ".png");
+			this.debuff_texture = new ResourceLocation("pact_magic", "textures/gui/" + debuff.getDescriptionId() + ".png");
 		}
 		this.translation_key = new TranslationTextComponent("gui." + id + ".title");
 		this.desc_key = new TranslationTextComponent("gui." + id + ".desc");
@@ -90,9 +90,9 @@ public abstract class Angel {
 		
 		Main.LOGGER.debug("slotting " + this.getID());
 		
-		this.player.getAttribute(this.buff).applyNonPersistentModifier(new AttributeModifier(ANGEL_BUFF, "Angel buff", ((double) this.rank), Operation.MULTIPLY_BASE));
+		this.player.getAttribute(this.buff).addTransientModifier(new AttributeModifier(ANGEL_BUFF, "Angel buff", ((double) this.rank), Operation.MULTIPLY_BASE));
 		if(this.debuff != null) {
-			this.player.getAttribute(this.debuff).applyNonPersistentModifier(new AttributeModifier(ANGEL_DEBUFF, "Angel debuff", 1d / ((double) this.rank + 1d), Operation.MULTIPLY_BASE));
+			this.player.getAttribute(this.debuff).addTransientModifier(new AttributeModifier(ANGEL_DEBUFF, "Angel debuff", 1d / ((double) this.rank + 1d), Operation.MULTIPLY_BASE));
 		}
 	}
 	public void onUnslot() {

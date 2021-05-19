@@ -43,11 +43,11 @@ public class AngelButton extends Button {
 			if(button instanceof AngelButton) {
 				player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
 					if(pactMagic.getSlottedAngel() == slottedAngel) {
-						screen.renderTooltip(stack, screen.getMinecraft().fontRenderer.trimStringToWidth(UNSLOT.apply(slottedAngel.getRank()), 200), x1, y1);
+						screen.renderTooltip(stack, screen.getMinecraft().font.split(UNSLOT.apply(slottedAngel.getRank()), 200), x1, y1);
 					} else if(pactMagic.getSlottedAngel() == null) {
-						screen.renderTooltip(stack, screen.getMinecraft().fontRenderer.trimStringToWidth(SLOT.apply(slottedAngel.getRank()), 200), x1, y1);
+						screen.renderTooltip(stack, screen.getMinecraft().font.split(SLOT.apply(slottedAngel.getRank()), 200), x1, y1);
 					} else {
-						screen.renderTooltip(stack, screen.getMinecraft().fontRenderer.trimStringToWidth(SWAP.apply(slottedAngel.getRank()), 200), x1, y1);
+						screen.renderTooltip(stack, screen.getMinecraft().font.split(SWAP.apply(slottedAngel.getRank()), 200), x1, y1);
 					}
 				});
 			}

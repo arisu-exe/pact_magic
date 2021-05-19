@@ -14,7 +14,7 @@ public class MammonDemon extends Demon {
 	@Nullable MammonEntity mammon;
 
 	MammonDemon() {
-		super("mammon", 2, Attributes.ARMOR, Attributes.MAX_HEALTH, false, () -> Ingredient.fromItems(Items.GOLD_INGOT, Items.IRON_INGOT));
+		super("mammon", 2, Attributes.ARMOR, Attributes.MAX_HEALTH, false, () -> Ingredient.of(Items.GOLD_INGOT, Items.IRON_INGOT));
 	
 		this.mammon = null;
 	}
@@ -24,9 +24,9 @@ public class MammonDemon extends Demon {
 		super.onSlot(player);
 		
 		if(this.mammon == null) {
-			this.mammon = EntityTypePactMagic.MAMMON.get().spawn(player.getServerWorld(), null, null, player, player.getPosition(), SpawnReason.MOB_SUMMONED, false, false);
+			this.mammon = EntityTypePactMagic.MAMMON.get().spawn(player.getLevel(), null, null, player, player.blockPosition(), SpawnReason.MOB_SUMMONED, false, false);
 			this.mammon.setCaster(player);
-			player.getEntityWorld().addEntity(this.mammon);			
+			player.getCommandSenderWorld().addFreshEntity(this.mammon);			
 		}
 	}
 	@Override

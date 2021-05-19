@@ -44,11 +44,11 @@ public abstract class Demon {
 		this.autoActivate = autoActivate;
 		this.offering = new LazyValue<>(offering);
 		this.texture = new ResourceLocation("pact_magic", "textures/gui/demons/" + id + ".png");
-		this.buff_texture = new ResourceLocation("pact_magic", "textures/gui/" + buff.getAttributeName() + ".png");
+		this.buff_texture = new ResourceLocation("pact_magic", "textures/gui/" + buff.getDescriptionId() + ".png");
 		if(this.debuff == null) {
 			this.debuff_texture = null;
 		} else {
-			this.debuff_texture = new ResourceLocation("pact_magic", "textures/gui/" + debuff.getAttributeName() + ".png");
+			this.debuff_texture = new ResourceLocation("pact_magic", "textures/gui/" + debuff.getDescriptionId() + ".png");
 		}
 		
 		ID_MAP.put(this.id, this);
@@ -70,7 +70,7 @@ public abstract class Demon {
 		return this.autoActivate;
 	}
 	public final Ingredient getOffering() {
-		return this.offering.getValue();
+		return this.offering.get();
 	}
 	
 	public void onSlot(@Nonnull ServerPlayerEntity player) {
@@ -78,9 +78,9 @@ public abstract class Demon {
 		
 		Main.LOGGER.debug("slotting " + this.getID());
 
-		this.player.getAttribute(this.buff).applyNonPersistentModifier(new AttributeModifier(DEMON_BUFF, "Demon buff", (double) this.rank, Operation.MULTIPLY_BASE));
+		this.player.getAttribute(this.buff).addTransientModifier(new AttributeModifier(DEMON_BUFF, "Demon buff", (double) this.rank, Operation.MULTIPLY_BASE));
 		if(this.debuff != null) {
-			this.player.getAttribute(this.debuff).applyNonPersistentModifier(new AttributeModifier(DEMON_DEBUFF, "Demon debuff", 1d / ((double) this.rank + 1d), Operation.MULTIPLY_BASE));
+			this.player.getAttribute(this.debuff).addTransientModifier(new AttributeModifier(DEMON_DEBUFF, "Demon debuff", 1d / ((double) this.rank + 1d), Operation.MULTIPLY_BASE));
 		}
 	}
 	public void onUnslot() {

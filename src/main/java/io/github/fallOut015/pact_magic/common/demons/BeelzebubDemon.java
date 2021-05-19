@@ -7,7 +7,7 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class BeelzebubDemon extends Demon {
 	BeelzebubDemon() {
-		super("beelzebub", 3, Attributes.ATTACK_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.fromItems(Items.MUTTON, Items.CHICKEN, Items.PORKCHOP));
+		super("beelzebub", 3, Attributes.ATTACK_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(Items.MUTTON, Items.CHICKEN, Items.PORKCHOP));
 	}
 
 	@Override

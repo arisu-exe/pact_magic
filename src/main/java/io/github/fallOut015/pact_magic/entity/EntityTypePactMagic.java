@@ -14,9 +14,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class EntityTypePactMagic {
 	private static DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Main.MODID);
 	
-	public static final RegistryObject<EntityType<SeraphEntity>> SERAPH = ENTITIES.register("seraph", () -> EntityType.Builder.create(SeraphEntity::new, EntityClassification.MISC).size(1.0f, 2.0f).build("seraph"));
-	public static final RegistryObject<EntityType<MammonEntity>> MAMMON = ENTITIES.register("mammon", () -> EntityType.Builder.create(MammonEntity::new, EntityClassification.MISC).size(0.8f, 1.5f).setShouldReceiveVelocityUpdates(true).build("mammon"));
-	public static final RegistryObject<EntityType<SigilEntity>> SIGIL = ENTITIES.register("sigil", () -> EntityType.Builder.create(SigilEntity::new, EntityClassification.MISC).size(2.0f, 0.0625f).disableSerialization().build("sigil"));
+	public static final RegistryObject<EntityType<SeraphEntity>> SERAPH = ENTITIES.register("seraph", () -> EntityType.Builder.of(SeraphEntity::new, EntityClassification.MISC).sized(1.0f, 2.0f).build("seraph"));
+	public static final RegistryObject<EntityType<MammonEntity>> MAMMON = ENTITIES.register("mammon", () -> EntityType.Builder.of(MammonEntity::new, EntityClassification.MISC).sized(0.8f, 1.5f).setShouldReceiveVelocityUpdates(true).build("mammon"));
+	public static final RegistryObject<EntityType<SigilEntity>> SIGIL = ENTITIES.register("sigil", () -> EntityType.Builder.of(SigilEntity::new, EntityClassification.MISC).sized(2.0f, 0.0625f).noSave().build("sigil"));
 	
 	public static void register(IEventBus bus) {
 		ENTITIES.register(bus);

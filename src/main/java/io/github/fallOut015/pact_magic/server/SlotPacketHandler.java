@@ -26,10 +26,10 @@ public class SlotPacketHandler extends PacketHandlerPactMagic {
 	
 	public static void encoder(SlotPacketHandler msg, PacketBuffer buffer) {
 		buffer.writeBoolean(msg.isDemon());
-		buffer.writeString(msg.getID());
+		buffer.writeUtf(msg.getID());
 	}
 	public static SlotPacketHandler decoder(PacketBuffer buffer) {
-		return new SlotPacketHandler(buffer.readBoolean(), buffer.readString());
+		return new SlotPacketHandler(buffer.readBoolean(), buffer.readUtf());
 	}
 	public static void handle(SlotPacketHandler msg, Supplier<NetworkEvent.Context> ctx) {
 	    ctx.get().enqueueWork(() -> {
