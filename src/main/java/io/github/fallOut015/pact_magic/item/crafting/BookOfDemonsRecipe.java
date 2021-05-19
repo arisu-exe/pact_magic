@@ -14,6 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -35,7 +36,7 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 					pages.add(stack);
 				} else if(stack.getItem() == ItemsPactMagic.BOOK_OF_DEMONS.get()) {
 					demonBooks.add(stack);
-				} else if(stack.getItem() == Items.BOOK) {
+				} else if(stack.getItem() == Items.BOOK || stack.getItem().is(ItemTags.LECTERN_BOOKS)) {
 					if(book.isEmpty()) {
 						book = stack;
 					} else {
@@ -75,7 +76,7 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 					pages.add(stack);
 				} else if(stack.getItem() == ItemsPactMagic.BOOK_OF_DEMONS.get()) {
 					demonBooks.add(stack);
-				} else if(stack.getItem() == Items.BOOK) {
+				} else if(stack.getItem() == Items.BOOK || stack.getItem().is(ItemTags.LECTERN_BOOKS)) {
 					if(book.isEmpty()) {
 						book = stack;
 					} else {

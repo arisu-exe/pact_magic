@@ -15,8 +15,10 @@ import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 public class BookOfAngelsRecipe extends SpecialRecipe {
 	public BookOfAngelsRecipe(ResourceLocation idIn) {
@@ -36,7 +38,7 @@ public class BookOfAngelsRecipe extends SpecialRecipe {
 					pages.add(stack);
 				} else if(stack.getItem() == ItemsPactMagic.BOOK_OF_ANGELS.get()) {
 					angelBooks.add(stack);
-				} else if(stack.getItem() == Items.BOOK) {
+				} else if(stack.getItem() == Items.BOOK || stack.getItem().is(ItemTags.LECTERN_BOOKS)) {
 					if(book.isEmpty()) {
 						book = stack;
 					} else {
@@ -76,7 +78,7 @@ public class BookOfAngelsRecipe extends SpecialRecipe {
 					pages.add(stack);
 				} else if(stack.getItem() == ItemsPactMagic.BOOK_OF_ANGELS.get()) {
 					angelBooks.add(stack);
-				} else if(stack.getItem() == Items.BOOK) {
+				} else if(stack.getItem() == Items.BOOK || stack.getItem().is(ItemTags.LECTERN_BOOKS)) {
 					if(book.isEmpty()) {
 						book = stack;
 					} else {
