@@ -2,7 +2,7 @@ package io.github.fallOut015.pact_magic.common.angels;
 
 import javax.annotation.Nullable;
 
-import io.github.fallOut015.pact_magic.entity.EntityTypePactMagic;
+import io.github.fallOut015.pact_magic.entity.EntitiesPactMagic;
 import io.github.fallOut015.pact_magic.entity.effect.angels.SeraphEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -22,7 +22,7 @@ public class SeraphimAngel extends Angel {
 		super.onSlot(player);
 		
 		if(this.seraph == null) {
-			this.seraph = EntityTypePactMagic.SERAPH.get().spawn(player.getLevel(), null, null, player, player.blockPosition(), SpawnReason.MOB_SUMMONED, false, false);
+			this.seraph = EntitiesPactMagic.SERAPH.get().spawn(player.getLevel(), null, null, player, player.blockPosition(), SpawnReason.MOB_SUMMONED, false, false);
 			this.seraph.setCaster(player);
 			player.getCommandSenderWorld().addFreshEntity(this.seraph);			
 		}

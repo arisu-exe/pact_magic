@@ -2,7 +2,7 @@ package io.github.fallOut015.pact_magic.common.demons;
 
 import javax.annotation.Nullable;
 
-import io.github.fallOut015.pact_magic.entity.EntityTypePactMagic;
+import io.github.fallOut015.pact_magic.entity.EntitiesPactMagic;
 import io.github.fallOut015.pact_magic.entity.effect.demons.MammonEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -24,7 +24,7 @@ public class MammonDemon extends Demon {
 		super.onSlot(player);
 		
 		if(this.mammon == null) {
-			this.mammon = EntityTypePactMagic.MAMMON.get().spawn(player.getLevel(), null, null, player, player.blockPosition(), SpawnReason.MOB_SUMMONED, false, false);
+			this.mammon = EntitiesPactMagic.MAMMON.get().spawn(player.getLevel(), null, null, player, player.blockPosition(), SpawnReason.MOB_SUMMONED, false, false);
 			this.mammon.setCaster(player);
 			player.getCommandSenderWorld().addFreshEntity(this.mammon);			
 		}

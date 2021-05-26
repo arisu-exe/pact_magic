@@ -2,7 +2,7 @@ package io.github.fallOut015.pact_magic.server;
 
 import java.util.function.Supplier;
 
-import io.github.fallOut015.pact_magic.Main;
+import io.github.fallOut015.pact_magic.MainPactMagic;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -16,15 +16,15 @@ public class RequestPlayerPacketHandler extends PacketHandlerPactMagic {
 	}
 	
 	public static void encoder(RequestPlayerPacketHandler msg, PacketBuffer buffer) {
-		Main.LOGGER.debug("Encoding {} to {}", msg, buffer);
+		MainPactMagic.LOGGER.debug("Encoding {} to {}", msg, buffer);
 	}
 	public static RequestPlayerPacketHandler decoder(PacketBuffer buffer) {
-		Main.LOGGER.debug("Decoding {}", buffer);
+		MainPactMagic.LOGGER.debug("Decoding {}", buffer);
 		return new RequestPlayerPacketHandler();
 	}
 	public static void handle(RequestPlayerPacketHandler msg, Supplier<NetworkEvent.Context> ctx) {
 	    ctx.get().enqueueWork(() -> {
-			Main.LOGGER.debug("received request for player from client");
+			MainPactMagic.LOGGER.debug("received request for player from client");
 			
 			RequestPlayerPacketHandler.player = ctx.get().getSender();
 	    });

@@ -5,7 +5,7 @@ import java.util.function.Function;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import io.github.fallOut015.pact_magic.Main;
+import io.github.fallOut015.pact_magic.MainPactMagic;
 import io.github.fallOut015.pact_magic.common.capabilities.CapabilitiesPactMagic;
 import io.github.fallOut015.pact_magic.common.demons.Demon;
 import io.github.fallOut015.pact_magic.server.PacketHandlerPactMagic;
@@ -65,7 +65,7 @@ public class DemonButton extends Button {
 		Minecraft minecraft = Minecraft.getInstance();
 		
 		// Background / border
-		minecraft.getTextureManager().bind(Main.BORDER);
+		minecraft.getTextureManager().bind(MainPactMagic.BORDER);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		blit(matrixStack, this.x, this.y, 0, 0, this.width, this.height, this.width, this.height);
 		
@@ -89,7 +89,7 @@ public class DemonButton extends Button {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		blit(matrixStack, this.x + this.width + 2, this.y + 18, 0, 0, 16, 16, 16, 16);
 		
-		minecraft.getTextureManager().bind(Main.BUFF);
+		minecraft.getTextureManager().bind(MainPactMagic.BUFF);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 		blit(matrixStack, this.x + this.width + 18, this.y + 18, 0, 0, 16, 16, 16, 16);
 		
@@ -98,11 +98,11 @@ public class DemonButton extends Button {
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 			blit(matrixStack, this.x + this.width + 34, this.y + 18, 0, 0, 16, 16, 16, 16);
 			
-			minecraft.getTextureManager().bind(Main.DEBUFF);
+			minecraft.getTextureManager().bind(MainPactMagic.DEBUFF);
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 			blit(matrixStack, this.x + this.width + 50, this.y + 18, 0, 0, 16, 16, 16, 16);			
 		} else {
-			minecraft.getTextureManager().bind(Main.NONE);
+			minecraft.getTextureManager().bind(MainPactMagic.NONE);
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
 			blit(matrixStack, this.x + this.width + 34, this.y + 18, 0, 0, 32, 16, 32, 16);	
 		}

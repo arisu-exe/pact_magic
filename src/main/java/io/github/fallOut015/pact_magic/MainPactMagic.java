@@ -3,8 +3,10 @@ package io.github.fallOut015.pact_magic;
 import javax.annotation.Nullable;
 
 import io.github.fallOut015.pact_magic.common.capabilities.IPactMagic;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import io.github.fallOut015.pact_magic.world.gen.feature.structure.StructureFeaturesPactMagic;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -19,7 +21,7 @@ import io.github.fallOut015.pact_magic.common.capabilities.CapabilitiesPactMagic
 import io.github.fallOut015.pact_magic.common.capabilities.PactMagic;
 import io.github.fallOut015.pact_magic.common.capabilities.PactMagicProvider;
 import io.github.fallOut015.pact_magic.common.demons.Demons;
-import io.github.fallOut015.pact_magic.entity.EntityTypePactMagic;
+import io.github.fallOut015.pact_magic.entity.EntitiesPactMagic;
 import io.github.fallOut015.pact_magic.item.ItemsPactMagic;
 import io.github.fallOut015.pact_magic.item.crafting.RecipeSerializersPactMagic;
 import io.github.fallOut015.pact_magic.server.JumpPacketHandler;
@@ -54,17 +56,20 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(Main.MODID)
-public class Main {
+import java.util.List;
+import java.util.function.Supplier;
+
+@Mod(MainPactMagic.MODID)
+public class MainPactMagic {
 	public static final String MODID = "pact_magic";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public static final ResourceLocation BORDER = new ResourceLocation(Main.MODID, "textures/gui/border.png");
-    public static final ResourceLocation ANGEL_INDICATOR = new ResourceLocation(Main.MODID, "textures/gui/angel_indicator.png");
-    public static final ResourceLocation DEMON_INDICATOR = new ResourceLocation(Main.MODID, "textures/gui/demon_indicator.png");
-	public static final ResourceLocation BUFF = new ResourceLocation(Main.MODID, "textures/gui/buff.png");
-	public static final ResourceLocation DEBUFF = new ResourceLocation(Main.MODID, "textures/gui/debuff.png");
-	public static final ResourceLocation NONE = new ResourceLocation(Main.MODID, "textures/gui/none.png");
+    public static final ResourceLocation BORDER = new ResourceLocation(MainPactMagic.MODID, "textures/gui/border.png");
+    public static final ResourceLocation ANGEL_INDICATOR = new ResourceLocation(MainPactMagic.MODID, "textures/gui/angel_indicator.png");
+    public static final ResourceLocation DEMON_INDICATOR = new ResourceLocation(MainPactMagic.MODID, "textures/gui/demon_indicator.png");
+	public static final ResourceLocation BUFF = new ResourceLocation(MainPactMagic.MODID, "textures/gui/buff.png");
+	public static final ResourceLocation DEBUFF = new ResourceLocation(MainPactMagic.MODID, "textures/gui/debuff.png");
+	public static final ResourceLocation NONE = new ResourceLocation(MainPactMagic.MODID, "textures/gui/none.png");
 
     static @Nullable ServerPlayerEntity player;
     static double aw;
@@ -77,21 +82,22 @@ public class Main {
     static boolean alt;
     
     static {
-    	Main.player = null;
-    	Main.aw = 0;
-    	Main.ax = 0;
-    	Main.ay = 0;
-    	Main.dw = 0;
-    	Main.dx = 0;
-    	Main.dy = 0;
-    	Main.control = false;
-    	Main.alt = false;
+    	MainPactMagic.player = null;
+    	MainPactMagic.aw = 0;
+    	MainPactMagic.ax = 0;
+    	MainPactMagic.ay = 0;
+    	MainPactMagic.dw = 0;
+    	MainPactMagic.dx = 0;
+    	MainPactMagic.dy = 0;
+    	MainPactMagic.control = false;
+    	MainPactMagic.alt = false;
     }
 
-    public Main() {
+    public MainPactMagic() {
     	ItemsPactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
-    	EntityTypePactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
+    	EntitiesPactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
     	RecipeSerializersPactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
+		StructureFeaturesPactMagic.register(FMLJavaModLoadingContext.get().getModEventBus());
     	
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
@@ -124,21 +130,21 @@ public class Main {
     	@OnlyIn(Dist.CLIENT)
     	public static void onRenderGameOverlay(final RenderGameOverlayEvent event) {
     		if(event.getType() == ElementType.ALL) {
-    			if(Main.player != null) {
-    				Main.player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
+    			if(MainPactMagic.player != null) {
+    				MainPactMagic.player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
     	    			Minecraft minecraft = Minecraft.getInstance();
     	    			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0f);
     	    			if(pactMagic.getSlottedAngel() != null) {
     	        			if(pactMagic.getSlottedAngel().isPrepared()) {
     	        				if(!minecraft.isPaused()) {
-    	        					Main.aw += 0.05;    	        					
+    	        					MainPactMagic.aw += 0.05;
     	        				}
-        	        			Main.ax = (Math.sin((Main.aw * Math.PI) / 4) * 4);
-        	        			Main.ay = (Math.sin((Main.aw * Math.PI) / 2) * 2);
+        	        			MainPactMagic.ax = (Math.sin((MainPactMagic.aw * Math.PI) / 4) * 4);
+        	        			MainPactMagic.ay = (Math.sin((MainPactMagic.aw * Math.PI) / 2) * 2);
     	        			} else {
-    	        				Main.aw = 0;
-    	        				Main.ax = 0;
-    	        				Main.ay = 0;
+    	        				MainPactMagic.aw = 0;
+    	        				MainPactMagic.ax = 0;
+    	        				MainPactMagic.ay = 0;
     	        			}
     	        			
     	        			if(pactMagic.getSlottedAngel() instanceof IToggleable) {
@@ -148,27 +154,27 @@ public class Main {
     	    	    	            RenderSystem.defaultBlendFunc();
     	    	        			minecraft.getTextureManager().bind(ANGEL_INDICATOR);
     	            				event.getMatrixStack().translate(32, 32, 0);
-    	    	        			event.getMatrixStack().mulPose(new Quaternion(Vector3f.ZN, (float) (2f * Main.aw * Math.PI), true));
-    	    	        			event.getMatrixStack().scale(1f + (float) Main.ay / 20, 1f + (float) Main.ay / 20, 1f);
+    	    	        			event.getMatrixStack().mulPose(new Quaternion(Vector3f.ZN, (float) (2f * MainPactMagic.aw * Math.PI), true));
+    	    	        			event.getMatrixStack().scale(1f + (float) MainPactMagic.ay / 20, 1f + (float) MainPactMagic.ay / 20, 1f);
     	    	        			AbstractGui.blit(event.getMatrixStack(), -20, -20, 0, 0, 40, 40, 40, 40);
     	    	        			RenderSystem.disableBlend();
     	    	        			event.getMatrixStack().popPose();
     	        				}
-    	        			} else if(Main.control) {
+    	        			} else if(MainPactMagic.control) {
     	        				event.getMatrixStack().pushPose();
 	    	        			RenderSystem.enableBlend();
 	    	    	            RenderSystem.defaultBlendFunc();
 	    	        			minecraft.getTextureManager().bind(ANGEL_INDICATOR);
 	            				event.getMatrixStack().translate(32, 32, 0);
-	    	        			event.getMatrixStack().mulPose(new Quaternion(Vector3f.ZN, (float) (2f * Main.aw * Math.PI), true));
-	    	        			event.getMatrixStack().scale(1f + (float) Main.ay / 20, 1f + (float) Main.ay / 20, 1f);
+	    	        			event.getMatrixStack().mulPose(new Quaternion(Vector3f.ZN, (float) (2f * MainPactMagic.aw * Math.PI), true));
+	    	        			event.getMatrixStack().scale(1f + (float) MainPactMagic.ay / 20, 1f + (float) MainPactMagic.ay / 20, 1f);
 	    	        			AbstractGui.blit(event.getMatrixStack(), -20, -20, 0, 0, 40, 40, 40, 40);
 	    	        			RenderSystem.disableBlend();
 	    	        			event.getMatrixStack().popPose();
     	        			}
     	        			
     	        			minecraft.getTextureManager().bind(pactMagic.getSlottedAngel().getTexture());
-    	        			AbstractGui.blit(event.getMatrixStack(), 16 + (int) Main.ax, 16 + (int) Main.ay, 0, 0, 32, 32, 32, 32);
+    	        			AbstractGui.blit(event.getMatrixStack(), 16 + (int) MainPactMagic.ax, 16 + (int) MainPactMagic.ay, 0, 0, 32, 32, 32, 32);
     	    			
         	    			float cooldown = (float) pactMagic.getSlottedAngel().getTimer() / (float) pactMagic.getSlottedAngel().getCooldown();
         	    			// TODO beautify
@@ -179,7 +185,7 @@ public class Main {
         	    	            RenderSystem.defaultBlendFunc();
         	    	            Tessellator tessellator1 = Tessellator.getInstance();
         	    	            BufferBuilder bufferbuilder1 = tessellator1.getBuilder();
-        	    	            Main.draw(bufferbuilder1, 14, 14 + (int) (38 * (1f - cooldown)), 35, (int) (38 * cooldown), 255, 255, 255, 128);
+        	    	            MainPactMagic.draw(bufferbuilder1, 14, 14 + (int) (38 * (1f - cooldown)), 35, (int) (38 * cooldown), 255, 255, 255, 128);
         	    	            RenderSystem.enableTexture();
         	    	            RenderSystem.enableDepthTest();
         	    			}
@@ -194,26 +200,26 @@ public class Main {
     	    					modx = -64;
     	    				}
     	    				if(!minecraft.isPaused()) {
-    	    					Main.dw += 0.05;    	        					
+    	    					MainPactMagic.dw += 0.05;
     	    				}
-    	    				Main.dx = (int) (Math.sin((Main.dw * Math.PI) / 4) * 4);
-    	    				Main.dy = (int) (Math.sin((Main.dw * Math.PI) / 2) * 2);
+    	    				MainPactMagic.dx = (int) (Math.sin((MainPactMagic.dw * Math.PI) / 4) * 4);
+    	    				MainPactMagic.dy = (int) (Math.sin((MainPactMagic.dw * Math.PI) / 2) * 2);
     	    				
-    	    				if(Main.alt) {
+    	    				if(MainPactMagic.alt) {
     	        				event.getMatrixStack().pushPose();
 	    	        			RenderSystem.enableBlend();
 	    	    	            RenderSystem.defaultBlendFunc();
 	    	        			minecraft.getTextureManager().bind(DEMON_INDICATOR);
 	            				event.getMatrixStack().translate(96 + modx, 32, 0);
-	    	        			event.getMatrixStack().mulPose(new Quaternion(Vector3f.ZN, (float) (2f * Main.dw * Math.PI), true));
-	    	        			event.getMatrixStack().scale(1f + (float) Main.dy / 20, 1f + (float) Main.dy / 20, 1f);
+	    	        			event.getMatrixStack().mulPose(new Quaternion(Vector3f.ZN, (float) (2f * MainPactMagic.dw * Math.PI), true));
+	    	        			event.getMatrixStack().scale(1f + (float) MainPactMagic.dy / 20, 1f + (float) MainPactMagic.dy / 20, 1f);
 	    	        			AbstractGui.blit(event.getMatrixStack(), -20, -20, 0, 0, 40, 40, 40, 40);
 	    	        			RenderSystem.disableBlend();
 	    	        			event.getMatrixStack().popPose();
     	        			}
     	    				
     	        			minecraft.getTextureManager().bind(pactMagic.getSlottedDemon().getTexture());
-    	        			AbstractGui.blit(event.getMatrixStack(), 80 + (int) Main.dx + modx, 16 + (int) Main.dy, 0, 0, 32, 32, 32, 32);
+    	        			AbstractGui.blit(event.getMatrixStack(), 80 + (int) MainPactMagic.dx + modx, 16 + (int) MainPactMagic.dy, 0, 0, 32, 32, 32, 32);
 
         	    			minecraft.getTextureManager().bind(BORDER);
     	        			AbstractGui.blit(event.getMatrixStack(), 72 + modx, 8, 0, 0, 48, 48, 48, 48);
@@ -259,25 +265,25 @@ public class Main {
     		}
     		
     		if(event.getKey() == GLFW.GLFW_KEY_LEFT_CONTROL && event.getAction() == GLFW.GLFW_PRESS) {
-    			Main.control = true;
+    			MainPactMagic.control = true;
     		}
     		if(event.getKey() == GLFW.GLFW_KEY_LEFT_CONTROL && event.getAction() == GLFW.GLFW_RELEASE) {
-    			Main.control = false;
+    			MainPactMagic.control = false;
     		}
     		
     		if(event.getKey() == GLFW.GLFW_KEY_LEFT_ALT && event.getAction() == GLFW.GLFW_PRESS) {
-    			Main.alt = true;
+    			MainPactMagic.alt = true;
     		}
     		if(event.getKey() == GLFW.GLFW_KEY_LEFT_ALT && event.getAction() == GLFW.GLFW_RELEASE) {
-    			Main.alt = false;
+    			MainPactMagic.alt = false;
     		}
     	}
     	
     	@SubscribeEvent
     	public static void onAttachCapabilities(final AttachCapabilitiesEvent<Entity> event) {
     		if(event.getObject() instanceof ServerPlayerEntity) {
-    			event.addCapability(new ResourceLocation(Main.MODID, event.getObject().getUUID().toString()), new PactMagicProvider(new PactMagic((ServerPlayerEntity) event.getObject())));
-    			Main.player = (ServerPlayerEntity) event.getObject();
+    			event.addCapability(new ResourceLocation(MainPactMagic.MODID, event.getObject().getUUID().toString()), new PactMagicProvider(new PactMagic((ServerPlayerEntity) event.getObject())));
+    			MainPactMagic.player = (ServerPlayerEntity) event.getObject();
     		}
     	}
     	@SubscribeEvent
@@ -297,6 +303,11 @@ public class Main {
     			});
     		}
     	}
+		@SubscribeEvent
+		public static void onBiomeLoad(final BiomeLoadingEvent biomeLoadingEvent) {
+			final List<Supplier<StructureFeature<?, ?>>> structures = biomeLoadingEvent.getGeneration().getStructures();
+			structures.add(() -> StructureFeaturesPactMagic.ANGEL_TEMPLE.get().configured(NoFeatureConfig.INSTANCE));
+		}
     }
     
     // From ItemRenderer

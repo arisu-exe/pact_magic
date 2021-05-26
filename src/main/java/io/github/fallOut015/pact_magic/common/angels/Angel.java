@@ -8,7 +8,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import io.github.fallOut015.pact_magic.Main;
+import io.github.fallOut015.pact_magic.MainPactMagic;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
@@ -88,7 +88,7 @@ public abstract class Angel {
 		this.timer = 0;
 		this.player = player;
 		
-		Main.LOGGER.debug("slotting " + this.getID());
+		MainPactMagic.LOGGER.debug("slotting " + this.getID());
 		
 		this.player.getAttribute(this.buff).addTransientModifier(new AttributeModifier(ANGEL_BUFF, "Angel buff", ((double) this.rank), Operation.MULTIPLY_BASE));
 		if(this.debuff != null) {
@@ -105,7 +105,7 @@ public abstract class Angel {
 			}
 		}
 		
-		Main.LOGGER.debug("unslotting " + this.getID());
+		MainPactMagic.LOGGER.debug("unslotting " + this.getID());
 
 		this.player = null;
 	}

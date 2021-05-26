@@ -3,20 +3,16 @@ package io.github.fallOut015.pact_magic.client.gui.screen.inventory;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import io.github.fallOut015.pact_magic.Main;
+import io.github.fallOut015.pact_magic.MainPactMagic;
 import io.github.fallOut015.pact_magic.common.angels.Angel;
 import io.github.fallOut015.pact_magic.common.angels.Angels;
 import io.github.fallOut015.pact_magic.item.BookOfAngelsItem;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.ReadBookScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -154,23 +150,23 @@ public class BookOfAngelsScreen extends Screen {
 				context.minecraft.getTextureManager().bind(this.slottedAngel.getTexture());
 				blit(matrixStack, x + 68, y + 28, 0, 0, 48, 48, 48, 48);
 
-				context.minecraft.getTextureManager().bind(Main.BORDER);
+				context.minecraft.getTextureManager().bind(MainPactMagic.BORDER);
 				blit(matrixStack, x + 60, y + 20, 0, 0, 64, 64, 64, 64);
 
 				context.minecraft.getTextureManager().bind(this.slottedAngel.getBuffTexture());
 				blit(matrixStack, x + 64, y + 90, 0, 0, 16, 16, 16, 16);
 
-				context.minecraft.getTextureManager().bind(Main.BUFF);
+				context.minecraft.getTextureManager().bind(MainPactMagic.BUFF);
 				blit(matrixStack, x + 78, y + 90, 0, 0, 16, 16, 16, 16);
 
 				if(this.slottedAngel.getDebuffTexture() != null) {
 					context.minecraft.getTextureManager().bind(this.slottedAngel.getDebuffTexture());
 					blit(matrixStack, x + 92, y + 90, 0, 0, 16, 16, 16, 16);
 
-					context.minecraft.getTextureManager().bind(Main.DEBUFF);
+					context.minecraft.getTextureManager().bind(MainPactMagic.DEBUFF);
 					blit(matrixStack, x + 106, y + 90, 0, 0, 16, 16, 16, 16);
 				} else {
-					context.minecraft.getTextureManager().bind(Main.NONE);
+					context.minecraft.getTextureManager().bind(MainPactMagic.NONE);
 					blit(matrixStack, x + 78, y + 90, 0, 0, 32, 16, 32, 16);
 				}
 			}

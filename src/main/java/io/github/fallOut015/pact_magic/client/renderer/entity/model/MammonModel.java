@@ -3,7 +3,7 @@ package io.github.fallOut015.pact_magic.client.renderer.entity.model;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
-import io.github.fallOut015.pact_magic.Main;
+import io.github.fallOut015.pact_magic.MainPactMagic;
 import io.github.fallOut015.pact_magic.entity.effect.demons.MammonEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -53,8 +53,8 @@ public class MammonModel<T extends MammonEntity> extends EntityModel<T> {
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
 		if(entity.isCasting()) {
 			double x = entity.getAnimationFrames();
-			this.leftArm.zRot = (float) Main.quad(x, 50, -2, 4, true);
-			this.rightArm.zRot = (float) Main.quad(x, 50, 2, 4, true);
+			this.leftArm.zRot = (float) MainPactMagic.quad(x, 50, -2, 4, true);
+			this.rightArm.zRot = (float) MainPactMagic.quad(x, 50, 2, 4, true);
 		} else {
 			this.leftArm.zRot = 0;
 			this.rightArm.zRot = 0;

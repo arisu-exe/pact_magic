@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
-import io.github.fallOut015.pact_magic.Main;
+import io.github.fallOut015.pact_magic.MainPactMagic;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -76,7 +76,7 @@ public class SigilEntity extends Entity {
 	}
 	
 	public double scale(double x, double max, int exp) {
-        return Main.quad(x, this.getMaxLife(), max, exp, true);
+        return MainPactMagic.quad(x, this.getMaxLife(), max, exp, true);
 	}
 	public void setMaxLife(int value) {
 		this.entityData.set(MAX_LIFE, value);

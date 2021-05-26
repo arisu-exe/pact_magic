@@ -2,8 +2,6 @@ package io.github.fallOut015.pact_magic.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import io.github.fallOut015.pact_magic.Main;
-import io.github.fallOut015.pact_magic.client.renderer.entity.model.HaloModel;
 import io.github.fallOut015.pact_magic.client.renderer.entity.model.WingsModel;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

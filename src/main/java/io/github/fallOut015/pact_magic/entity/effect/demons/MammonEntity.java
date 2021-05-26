@@ -2,7 +2,7 @@ package io.github.fallOut015.pact_magic.entity.effect.demons;
 
 import javax.annotation.Nullable;
 
-import io.github.fallOut015.pact_magic.entity.EntityTypePactMagic;
+import io.github.fallOut015.pact_magic.entity.EntitiesPactMagic;
 import io.github.fallOut015.pact_magic.entity.effect.SigilEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -92,7 +92,7 @@ public class MammonEntity extends Entity {
 			this.startCasting();
 			
 			if(this.getCommandSenderWorld() instanceof ServerWorld) {
-				SigilEntity sigil = EntityTypePactMagic.SIGIL.get().spawn((ServerWorld) this.getCommandSenderWorld(), null, null, this.caster, this.blockPosition(), SpawnReason.MOB_SUMMONED, false, false);
+				SigilEntity sigil = EntitiesPactMagic.SIGIL.get().spawn((ServerWorld) this.getCommandSenderWorld(), null, null, this.caster, this.blockPosition(), SpawnReason.MOB_SUMMONED, false, false);
 				sigil.setMaxLife(50);
 				sigil.setIsEffect();
 				this.getCommandSenderWorld().addFreshEntity(sigil);
@@ -101,7 +101,7 @@ public class MammonEntity extends Entity {
 					double x = MathHelper.cos((float) Math.toRadians(i * 45)) * this.random.nextFloat() * 8 + this.getX();
 					double z = MathHelper.sin((float) Math.toRadians(i * 45)) * this.random.nextFloat() * 8 + this.getZ();
 					double y = this.getCommandSenderWorld().getHeight(Type.WORLD_SURFACE, (int) x, (int) z);
-					SigilEntity sigil2 = EntityTypePactMagic.SIGIL.get().spawn((ServerWorld) this.getCommandSenderWorld(), null, null, this.caster, new BlockPos(x, y, z), SpawnReason.MOB_SUMMONED, false, false);
+					SigilEntity sigil2 = EntitiesPactMagic.SIGIL.get().spawn((ServerWorld) this.getCommandSenderWorld(), null, null, this.caster, new BlockPos(x, y, z), SpawnReason.MOB_SUMMONED, false, false);
 					sigil2.setMaxLife(400);
 					sigil2.setCaster(this.caster);
 					this.getCommandSenderWorld().addFreshEntity(sigil2);

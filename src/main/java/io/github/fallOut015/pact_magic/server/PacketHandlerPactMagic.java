@@ -1,6 +1,6 @@
 package io.github.fallOut015.pact_magic.server;
 
-import io.github.fallOut015.pact_magic.Main;
+import io.github.fallOut015.pact_magic.MainPactMagic;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -10,7 +10,7 @@ public abstract class PacketHandlerPactMagic {
 	private static int ids = 0;
 	private static final String PROTOCOL_VERSION = "1";
 	public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-	    new ResourceLocation(Main.MODID, "main"),
+	    new ResourceLocation(MainPactMagic.MODID, "main"),
 	    () -> PROTOCOL_VERSION,
 	    PROTOCOL_VERSION::equals,
 	    PROTOCOL_VERSION::equals

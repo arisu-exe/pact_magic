@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import io.github.fallOut015.pact_magic.common.demons.Demon;
 import io.github.fallOut015.pact_magic.item.DemonPageItem;
 import io.github.fallOut015.pact_magic.item.ItemsPactMagic;
+import io.github.fallOut015.pact_magic.tags.ItemTagsPactMagic;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -36,7 +37,7 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 					pages.add(stack);
 				} else if(stack.getItem() == ItemsPactMagic.BOOK_OF_DEMONS.get()) {
 					demonBooks.add(stack);
-				} else if(stack.getItem() == Items.BOOK || stack.getItem().is(ItemTags.LECTERN_BOOKS)) {
+				} else if(stack.getItem().is(ItemTagsPactMagic.BOOKS_FOR_SPELLBOOK)) {
 					if(book.isEmpty()) {
 						book = stack;
 					} else {
@@ -76,7 +77,7 @@ public class BookOfDemonsRecipe extends SpecialRecipe {
 					pages.add(stack);
 				} else if(stack.getItem() == ItemsPactMagic.BOOK_OF_DEMONS.get()) {
 					demonBooks.add(stack);
-				} else if(stack.getItem() == Items.BOOK || stack.getItem().is(ItemTags.LECTERN_BOOKS)) {
+				} else if(stack.getItem().is(ItemTagsPactMagic.BOOKS_FOR_SPELLBOOK)) {
 					if(book.isEmpty()) {
 						book = stack;
 					} else {

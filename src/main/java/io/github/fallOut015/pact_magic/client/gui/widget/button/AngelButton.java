@@ -3,19 +3,14 @@ package io.github.fallOut015.pact_magic.client.gui.widget.button;
 import java.util.function.Function;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 
-import io.github.fallOut015.pact_magic.Main;
 import io.github.fallOut015.pact_magic.common.angels.Angel;
 import io.github.fallOut015.pact_magic.common.capabilities.CapabilitiesPactMagic;
 import io.github.fallOut015.pact_magic.server.PacketHandlerPactMagic;
 import io.github.fallOut015.pact_magic.server.SlotPacketHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
