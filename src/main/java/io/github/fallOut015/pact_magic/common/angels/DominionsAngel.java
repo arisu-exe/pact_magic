@@ -7,11 +7,11 @@ public class DominionsAngel extends Angel {
 	// A light follows the player passively and stays behind when Flash of Light is used.
 	
 	DominionsAngel() {
-		super("dominions", 2, Attributes.MOVEMENT_SPEED, Attributes.ATTACK_DAMAGE, false, 500);
+		super("dominions", 5, 2, Attributes.MOVEMENT_SPEED, Attributes.ATTACK_DAMAGE, false, 500);
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		// TODO Auto-generated method stub
 		// Flash of Light
 	}

@@ -20,7 +20,6 @@ import io.github.fallOut015.pact_magic.common.angels.IToggleable;
 import io.github.fallOut015.pact_magic.common.capabilities.CapabilitiesPactMagic;
 import io.github.fallOut015.pact_magic.common.capabilities.PactMagic;
 import io.github.fallOut015.pact_magic.common.capabilities.PactMagicProvider;
-import io.github.fallOut015.pact_magic.common.demons.Demons;
 import io.github.fallOut015.pact_magic.entity.EntitiesPactMagic;
 import io.github.fallOut015.pact_magic.item.ItemsPactMagic;
 import io.github.fallOut015.pact_magic.item.crafting.RecipeSerializersPactMagic;
@@ -109,8 +108,6 @@ public class MainPactMagic {
     
     private void setup(final FMLCommonSetupEvent event) {
     	PacketHandlerPactMagic.setup(event);
-    	Angels.setup(event);
-    	Demons.setup(event);
     	CapabilitiesPactMagic.setup(event);
     }
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -294,10 +291,10 @@ public class MainPactMagic {
     	public static void onLivingDamage(final LivingDamageEvent event) {
     		if(event.getEntityLiving() instanceof ServerPlayerEntity) {
     			((ServerPlayerEntity) event.getEntityLiving()).getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
-    				if(pactMagic.getSlottedAngel() == Angels.ANGELS && ((IToggleable) pactMagic.getSlottedAngel()).isOn()) {
+    				if(pactMagic.getSlottedAngel().is(Angels.ANGELS) && ((IToggleable) pactMagic.getSlottedAngel()).isOn()) {
     					if(!event.getSource().isBypassInvul()) {
         					event.setCanceled(true);
-        					pactMagic.slotAngel(null);
+        					pactMagic.slotAngel(-1);
     					}
     				}
     			});
@@ -313,10 +310,10 @@ public class MainPactMagic {
     // From ItemRenderer
     private static void draw(BufferBuilder renderer, int x, int y, int width, int height, int red, int green, int blue, int alpha) {
         renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        renderer.vertex((double)(x + 0), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.vertex((double)(x + 0), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.vertex((double)(x), (double)(y), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.vertex((double)(x), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
         renderer.vertex((double)(x + width), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.vertex((double)(x + width), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.vertex((double)(x + width), (double)(y), 0.0D).color(red, green, blue, alpha).endVertex();
         Tessellator.getInstance().end();
      }
     public static double quad(double x, double xint2, double max, int exp, boolean clamp) {

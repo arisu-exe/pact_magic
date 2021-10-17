@@ -67,11 +67,11 @@ public class DemonPageItem extends Item {
 		if(pactMagic.isPresent()) {
 			@Nullable Demon demon = getDemon(stack);
 			if(demon != null) {
-				if(pactMagic.get().getSlottedDemon() == demon) {
+				/*if(pactMagic.get().getSlottedDemon() == demon) {
 					pactMagic.get().slotDemon(null);
 				} else {
 					pactMagic.get().slotDemon(demon);
-				}
+				}*/
 				return ActionResult.success(stack);
 			} else {
 				return ActionResult.fail(stack);

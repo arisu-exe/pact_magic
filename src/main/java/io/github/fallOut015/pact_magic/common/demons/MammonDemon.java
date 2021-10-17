@@ -14,12 +14,12 @@ public class MammonDemon extends Demon {
 	@Nullable MammonEntity mammon;
 
 	MammonDemon() {
-		super("mammon", 2, Attributes.ARMOR, Attributes.MAX_HEALTH, false, () -> Ingredient.of(Items.GOLD_INGOT, Items.IRON_INGOT));
+		super("mammon", 4, 2, Attributes.ARMOR, Attributes.MAX_HEALTH, false, () -> Ingredient.of(Items.GOLD_INGOT, Items.IRON_INGOT));
 	
 		this.mammon = null;
 	}
 
-	@Override
+	/*@Override
 	public void onSlot(ServerPlayerEntity player) {
 		super.onSlot(player);
 		
@@ -37,9 +37,9 @@ public class MammonDemon extends Demon {
 			this.mammon.remove();
 			this.mammon = null;			
 		}
-	}
+	}*/
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		// Activate Ensnare
 		
 		if(this.mammon != null) {

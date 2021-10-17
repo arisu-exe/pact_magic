@@ -5,7 +5,9 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import io.github.fallOut015.pact_magic.common.angels.Angel;
+import io.github.fallOut015.pact_magic.common.capabilities.AngelInstance;
 import io.github.fallOut015.pact_magic.common.capabilities.CapabilitiesPactMagic;
+import io.github.fallOut015.pact_magic.common.capabilities.DemonInstance;
 import io.github.fallOut015.pact_magic.common.capabilities.IPactMagic;
 import io.github.fallOut015.pact_magic.common.demons.Demon;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -35,16 +37,16 @@ public class SpellCastPacketHandler extends PacketHandlerPactMagic {
 	    	LazyOptional<IPactMagic> capability = t.getCapability(CapabilitiesPactMagic.PACT_MAGIC);
 	    	capability.ifPresent(pactMagic -> {
 		    	if(msg.isDemon()) {
-		    		@Nullable Demon demon = pactMagic.getSlottedDemon();
-			    	if(demon != null) {
-			    		demon.spell(t);
-			    	}
+		    		DemonInstance demon = pactMagic.getSlottedDemon();
+					if(demon != null) {
+						demon.spell();
+					}
 		    	} else {
-		    		@Nullable Angel angel = pactMagic.getSlottedAngel();
-			    	if(angel != null && angel.isPrepared()) {
-			    		angel.spell(t);
-			    	}
-		    	}
+					AngelInstance angel = pactMagic.getSlottedAngel();
+					if(angel != null) {
+						angel.spell();
+					}
+				}
 	    	});
 	    });
 	    

@@ -12,11 +12,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class VirtuesAngel extends Angel {
 	VirtuesAngel() {
-		super("virtues", 2, Attributes.LUCK, Attributes.ATTACK_DAMAGE, false, 1000);
+		super("virtues", 4, 2, Attributes.LUCK, Attributes.ATTACK_DAMAGE, false, 1000);
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		List<Effect> effects = new LinkedList<Effect>();
 		for(Effect effect : ForgeRegistries.POTIONS) {
 			if(effect.isBeneficial()) {

@@ -7,11 +7,11 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class AsmodeusDemon extends Demon {
 	AsmodeusDemon() {
-		super("asmodeus", 2, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(ItemStack.EMPTY));
+		super("asmodeus", 3, 2, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(ItemStack.EMPTY));
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		// TODO Auto-generated method stub
 		// Activate Sweet Revenge
 	}

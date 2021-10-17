@@ -16,10 +16,10 @@ public class PactMagicStorage implements IStorage<IPactMagic> {
 		CompoundNBT nbt = new CompoundNBT();
 		nbt.putInt("angelKarma", instance.getAngelKarma());
 		nbt.putInt("demonKarma", instance.getDemonKarma());
-		@Nullable Angel angel = instance.getSlottedAngel();
-		nbt.putString("slottedAngel", angel == null ? "" : angel.getID());
-		@Nullable Demon demon = instance.getSlottedDemon();
-		nbt.putString("slottedDemon", demon == null ? "" : demon.getID());
+		nbt.putInt("ia", instance.getAngelIndex());
+		nbt.putInt("id", instance.getDemonIndex());
+		nbt.putString("angels", instance.getAngelsSerialized());
+		nbt.putString("demons", instance.getDemonsSerialized());
 		return nbt;
 	}
 	@Override
@@ -27,8 +27,9 @@ public class PactMagicStorage implements IStorage<IPactMagic> {
 		if(nbt instanceof CompoundNBT) {
 			instance.setAngelKarma(((CompoundNBT) nbt).getInt("angelKarma"));
 			instance.setDemonKarma(((CompoundNBT) nbt).getInt("angelDemon"));
-			instance.slotAngel(Angel.fromID(((CompoundNBT) nbt).getString("slottedAngel")));
-			instance.slotDemon(Demon.fromID(((CompoundNBT) nbt).getString("slottedDemon")));
+			instance.slotAngel(((CompoundNBT) nbt).getInt("ia"));
+			instance.slotDemon(((CompoundNBT) nbt).getInt("id"));
+			// deserialize
 		}
 	}
 }

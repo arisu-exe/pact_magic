@@ -5,11 +5,11 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 
 public class PrincipalitiesAngel extends Angel {
 	PrincipalitiesAngel() {
-		super("principalities", 1, Attributes.ARMOR, Attributes.ATTACK_DAMAGE, false, 500);
+		super("principalities", 2, 1, Attributes.ARMOR, Attributes.ATTACK_DAMAGE, false, 500);
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		// TODO Auto-generated method stub
 		// Sentry
 	}

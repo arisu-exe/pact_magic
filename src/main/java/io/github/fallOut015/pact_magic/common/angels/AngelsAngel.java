@@ -7,13 +7,13 @@ public class AngelsAngel extends Angel implements IToggleable {
 	boolean allowed;
 
 	AngelsAngel() {
-		super("angels", 1, Attributes.MAX_HEALTH, Attributes.ATTACK_DAMAGE, false, 1);
+		super("angels", 0, 1, Attributes.MAX_HEALTH, Attributes.ATTACK_DAMAGE, false, 1);
 		
 		this.allowed = true;
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		this.allowed = !this.allowed;
 		
 		// Toggle Guardian Angel

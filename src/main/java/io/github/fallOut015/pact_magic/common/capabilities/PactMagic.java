@@ -1,11 +1,11 @@
 package io.github.fallOut015.pact_magic.common.capabilities;
 
-import javax.annotation.Nullable;
-
-import io.github.fallOut015.pact_magic.common.angels.Angel;
-import io.github.fallOut015.pact_magic.common.demons.Demon;
+import io.github.fallOut015.pact_magic.common.angels.Angels;
+import io.github.fallOut015.pact_magic.common.demons.Demons;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+
+import javax.annotation.Nullable;
 
 public class PactMagic implements IPactMagic {
 	final ServerPlayerEntity player;
@@ -13,22 +13,34 @@ public class PactMagic implements IPactMagic {
 	int angelKarma;
 	int demonKarma;
 	
-	@Nullable Angel slottedAngel;
-	@Nullable Demon slottedDemon;
-	
-	
-	
-	public void tick() {
-		if(this.slottedAngel != null) {
-			this.slottedAngel.tick();
-		}
-		if(this.slottedDemon != null) {
-			this.slottedDemon.tick();
-		}
-	}
-	
+	AngelInstance[] angels;
+	DemonInstance[] demons;
+
+	int ia, id;
+
 	public PactMagic(ServerPlayerEntity player) {
 		this.player = player;
+		this.angels = new AngelInstance[]{
+			new AngelInstance(Angels.ANGELS, player), new AngelInstance(Angels.ARCHANGELS, player), new AngelInstance(Angels.PRINCIPALITIES, player),
+			new AngelInstance(Angels.POWERS, player), new AngelInstance(Angels.VIRTUES, player), new AngelInstance(Angels.DOMINIONS, player),
+			new AngelInstance(Angels.THRONES, player), new AngelInstance(Angels.CHERUBIM, player), new AngelInstance(Angels.SERAPHIM, player)
+		};
+		this.demons = new DemonInstance[]{
+			new DemonInstance(Demons.MERIHEM, player), new DemonInstance(Demons.BELIAL, player), new DemonInstance(Demons.PYTHO, player),
+			new DemonInstance(Demons.ASMODEUS, player), new DemonInstance(Demons.MAMMON, player), new DemonInstance(Demons.ABADDON, player),
+			new DemonInstance(Demons.ASTAROTH, player), new DemonInstance(Demons.BEELZEBUB, player), new DemonInstance(Demons.SATAN, player)
+		};
+		this.ia = 0;
+		this.id = 0;
+	}
+
+	public void tick() {
+		if(this.getSlottedAngel() != null) {
+			this.getSlottedAngel().tick();
+		}
+		if(this.getSlottedDemon() != null) {
+			this.getSlottedDemon().tick();
+		}
 	}
 	
 	public PlayerEntity getPlayer() {
@@ -62,31 +74,39 @@ public class PactMagic implements IPactMagic {
 	
 	@Override
 	@Nullable
-	public Angel getSlottedAngel() {
-		return this.slottedAngel;
+	public AngelInstance getSlottedAngel() {
+		if(this.ia == -1) {
+			return null;
+		} else {
+			return this.angels[this.ia];
+		}
 	}
 	@Override
 	@Nullable
-	public Demon getSlottedDemon() {
-		return this.slottedDemon;
+	public DemonInstance getSlottedDemon() {
+		if(this.id == -1) {
+			return null;
+		} else {
+			return this.demons[this.id];
+		}
 	}
 	@Override
-	public void slotAngel(@Nullable Angel slottedAngel) {
-		// Return if Angel can't be slotted. 
+	public void slotAngel(int ia) {
+		// TODO Return if Angel can't be slotted.
 		
-		if(this.slottedAngel == slottedAngel) {
+		if(this.ia == ia) {
 			return;
 		}
-		if(this.slottedAngel != null) {
-			this.slottedAngel.onUnslot();
+		if(this.getSlottedAngel() != null) {
+			this.getSlottedAngel().onUnslot();
 		}
-		this.slottedAngel = slottedAngel;
-		if(this.slottedAngel != null) {
-			this.slottedAngel.onSlot(this.player);
+		this.ia = ia;
+		if(this.getSlottedAngel() != null) {
+			this.getSlottedAngel().onSlot();
 		}
 	}
 	@Override
-	public void slotDemon(@Nullable Demon slottedDemon) {
+	public void slotDemon(int id) {
 		// Return if Demon can't be slotted.
 //		for(ItemStack itemStackIn : slottedDemon.getOffering().getMatchingStacks()) {
 //			if(!this.getPlayer().inventory.hasItemStack(itemStackIn)) {
@@ -97,16 +117,40 @@ public class PactMagic implements IPactMagic {
 //			// remove itemstacks matching
 //			this.getPlayer().inventory.deleteStack(stack);
 //		}
-		
-		if(this.slottedDemon == slottedDemon) {
+
+		if(this.id == id) {
 			return;
 		}
-		if(this.slottedDemon != null) {
-			this.slottedDemon.onUnslot();
+		if(this.getSlottedDemon() != null) {
+			this.getSlottedDemon().onUnslot();
 		}
-		this.slottedDemon = slottedDemon;
-		if(this.slottedDemon != null) {
-			this.slottedDemon.onSlot(this.player);
+		this.id = id;
+		if(this.getSlottedDemon() != null) {
+			this.getSlottedDemon().onSlot();
 		}
+	}
+
+	@Override
+	public int getAngelIndex() {
+		return this.ia;
+	}
+	@Override
+	public int getDemonIndex() {
+		return this.id;
+	}
+
+	public String getAngelsSerialized() {
+		String ret = "";
+		for (AngelInstance angel : this.angels) {
+			ret += angel.getSerialized() + ";";
+		}
+		return ret;
+	}
+	public String getDemonsSerialized() {
+		String ret = "";
+		for (DemonInstance demon : this.demons) {
+			ret += demon.getSerialized() + ";";
+		}
+		return ret;
 	}
 }

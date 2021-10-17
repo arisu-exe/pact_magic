@@ -7,11 +7,11 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class PythoDemon extends Demon {
 	PythoDemon() {
-		super("pytho", 1, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(ItemStack.EMPTY));
+		super("pytho", 2, 1, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(ItemStack.EMPTY));
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		// TODO Auto-generated method stub
 		// Activate 
 	}

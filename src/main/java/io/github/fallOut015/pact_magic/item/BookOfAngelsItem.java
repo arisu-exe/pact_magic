@@ -19,8 +19,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-import net.minecraft.item.Item.Properties;
-
 public class BookOfAngelsItem extends Item {
 	public BookOfAngelsItem(Properties properties) {
 		super(properties);

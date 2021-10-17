@@ -67,11 +67,11 @@ public class AngelPageItem extends Item {
 		if(pactMagic.isPresent()) {
 			@Nullable Angel angel = getAngel(stack);
 			if(angel != null) {
-				if(pactMagic.get().getSlottedAngel() == angel) {
+				/*if(pactMagic.get().getSlottedAngel() == angel) {
 					pactMagic.get().slotAngel(null);
 				} else {
 					pactMagic.get().slotAngel(angel);
-				}
+				}*/
 				return ActionResult.success(stack);
 			} else {
 				return ActionResult.fail(stack);

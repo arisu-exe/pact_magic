@@ -1,10 +1,5 @@
 package io.github.fallOut015.pact_magic.common.capabilities;
 
-import javax.annotation.Nullable;
-
-import io.github.fallOut015.pact_magic.common.angels.Angel;
-import io.github.fallOut015.pact_magic.common.demons.Demon;
-
 public interface IPactMagic {
 	void tick();
 	
@@ -15,8 +10,14 @@ public interface IPactMagic {
 	void spendAngelKarma(int rank);
 	void spendDemonKarma(int rank);
 	
-	@Nullable Angel getSlottedAngel();
-	@Nullable Demon getSlottedDemon();
-	void slotAngel(@Nullable Angel slottedAngel);
-	void slotDemon(@Nullable Demon slottedDemon);
+	AngelInstance getSlottedAngel();
+	DemonInstance getSlottedDemon();
+	void slotAngel(int ia);
+	void slotDemon(int id);
+
+	int getAngelIndex();
+	int getDemonIndex();
+
+	String getAngelsSerialized();
+	String getDemonsSerialized();
 }

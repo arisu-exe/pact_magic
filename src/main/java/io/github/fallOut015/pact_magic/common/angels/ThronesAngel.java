@@ -5,11 +5,11 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 
 public class ThronesAngel extends Angel {
 	ThronesAngel() {
-		super("thrones", 3, Attributes.MOVEMENT_SPEED, Attributes.ATTACK_DAMAGE, false, 500);
+		super("thrones", 6, 3, Attributes.MOVEMENT_SPEED, Attributes.ATTACK_DAMAGE, false, 500);
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		// TODO Auto-generated method stub
 	}
 }

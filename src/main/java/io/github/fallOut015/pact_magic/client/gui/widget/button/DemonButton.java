@@ -33,16 +33,12 @@ public class DemonButton extends Button {
 	public DemonButton(int x, int y, final PlayerEntity player, final Demon slottedDemon, Screen screen) {
 		super(x, y, 64, 64, new TranslationTextComponent("gui." + slottedDemon.getID() + ".title"), button -> {
 			player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
-				if(pactMagic.getSlottedDemon() == slottedDemon) {
-					PacketHandlerPactMagic.INSTANCE.sendToServer(new SlotPacketHandler(true, ""));
-				} else {
-					PacketHandlerPactMagic.INSTANCE.sendToServer(new SlotPacketHandler(true, slottedDemon.getID()));
-				}
+				PacketHandlerPactMagic.INSTANCE.sendToServer(new SlotPacketHandler(true, true, slottedDemon.getIndex()));
 			});
 		}, (button, stack, x1, y1) -> {
 			if(button instanceof DemonButton) {
 				player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
-					if(pactMagic.getSlottedDemon() == slottedDemon) {
+					/*if(pactMagic.getSlottedDemon() == slottedDemon) {
 						screen.renderTooltip(stack, screen.getMinecraft().font.split(UNSLOT.apply(slottedDemon.getRank()), 200), x1, y1);
 					} else if(pactMagic.getSlottedDemon() == null) {
 						screen.renderTooltip(stack, screen.getMinecraft().font.split(SLOT.apply(slottedDemon.getRank()), 200), x1, y1);
@@ -50,7 +46,7 @@ public class DemonButton extends Button {
 					} else {
 						screen.renderTooltip(stack, screen.getMinecraft().font.split(SWAP.apply(slottedDemon.getRank()), 200), x1, y1);
 						// And offering
-					}
+					}*/
 				});
 			}
 		});

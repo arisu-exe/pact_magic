@@ -7,11 +7,11 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class AbaddonDemon extends Demon {
 	AbaddonDemon() {
-		super("abaddon", 2, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(ItemStack.EMPTY));
+		super("abaddon", 5, 2, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(ItemStack.EMPTY));
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		// TODO Auto-generated method stub
 		// Activate Time Warp
 	}

@@ -28,22 +28,18 @@ public class AngelButton extends Button {
 	public AngelButton(int x, int y, final PlayerEntity player, final Angel slottedAngel, Screen screen) {
 		super(x, y, 64, 64, new TranslationTextComponent("gui." + slottedAngel.getID() + ".title"), button -> {
 			player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
-				if(pactMagic.getSlottedAngel() == slottedAngel) {
-					PacketHandlerPactMagic.INSTANCE.sendToServer(new SlotPacketHandler(false, ""));
-				} else {
-					PacketHandlerPactMagic.INSTANCE.sendToServer(new SlotPacketHandler(false, slottedAngel.getID()));
-				}
+				PacketHandlerPactMagic.INSTANCE.sendToServer(new SlotPacketHandler(false, true, slottedAngel.getIndex()));
 			});
 		}, (button, stack, x1, y1) -> {
 			if(button instanceof AngelButton) {
 				player.getCapability(CapabilitiesPactMagic.PACT_MAGIC).ifPresent(pactMagic -> {
-					if(pactMagic.getSlottedAngel() == slottedAngel) {
+					/*if(pactMagic.getSlottedAngel() == slottedAngel) {
 						screen.renderTooltip(stack, screen.getMinecraft().font.split(UNSLOT.apply(slottedAngel.getRank()), 200), x1, y1);
 					} else if(pactMagic.getSlottedAngel() == null) {
 						screen.renderTooltip(stack, screen.getMinecraft().font.split(SLOT.apply(slottedAngel.getRank()), 200), x1, y1);
 					} else {
 						screen.renderTooltip(stack, screen.getMinecraft().font.split(SWAP.apply(slottedAngel.getRank()), 200), x1, y1);
-					}
+					}*/
 				});
 			}
 		});

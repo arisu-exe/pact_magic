@@ -7,13 +7,13 @@ public class CherubimAngel extends Angel implements IToggleable {
 	boolean allowed;
 	
 	CherubimAngel() {
-		super("cherubim", 3, Attributes.ARMOR, Attributes.ATTACK_DAMAGE, false, 1);
+		super("cherubim", 7, 3, Attributes.ARMOR, Attributes.ATTACK_DAMAGE, false, 1);
 		
 		this.allowed = true;
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		this.allowed = !this.allowed;
 		
 		// Toggle Wings of Flight

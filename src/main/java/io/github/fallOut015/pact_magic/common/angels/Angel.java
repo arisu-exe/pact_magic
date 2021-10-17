@@ -20,10 +20,11 @@ import net.minecraft.util.text.TranslationTextComponent;
 public abstract class Angel {
 	static final Map<String, Angel> ID_MAP = new HashMap<String, Angel>();
 	
-	static final UUID ANGEL_BUFF = UUID.fromString("1557100e-1de1-41ac-9ab4-ba6f116d751d");
-	static final UUID ANGEL_DEBUFF = UUID.fromString("06ca0283-cdfd-466e-9c57-71cb4160cd44");
+	public static final UUID ANGEL_BUFF = UUID.fromString("1557100e-1de1-41ac-9ab4-ba6f116d751d");
+	public static final UUID ANGEL_DEBUFF = UUID.fromString("06ca0283-cdfd-466e-9c57-71cb4160cd44");
 	
 	final String id;
+	final int index;
 	final int rank;
 	final Attribute buff;
 	@Nullable final Attribute debuff;
@@ -35,11 +36,9 @@ public abstract class Angel {
 	final ITextComponent translation_key;
 	final ITextComponent desc_key;
 	
-	int timer;
-	@Nullable ServerPlayerEntity player;
-	
-	Angel(final String id, final int rank, Attribute buff, @Nullable Attribute debuff, final boolean autoActivate, final int cooldown) {
+	Angel(final String id, final int index, final int rank, Attribute buff, @Nullable Attribute debuff, final boolean autoActivate, final int cooldown) {
 		this.id = id;
+		this.index = index;
 		this.rank = rank;
 		this.buff = buff;
 		this.debuff = debuff;
@@ -61,6 +60,9 @@ public abstract class Angel {
 	public final String getID() {
 		return this.id;
 	}
+	public final int getIndex() {
+		return this.index;
+	}
 	public final int getRank() {
 		return this.rank;
 	}
@@ -77,41 +79,7 @@ public abstract class Angel {
 	public final int getCooldown() {
 		return this.cooldown;
 	}
-	public int getTimer() {
-		return this.timer;
-	}
-	public boolean isPrepared() {
-		return this.timer == 0;
-	}
-	
-	public void onSlot(@Nonnull ServerPlayerEntity player) {
-		this.timer = 0;
-		this.player = player;
-		
-		MainPactMagic.LOGGER.debug("slotting " + this.getID());
-		
-		this.player.getAttribute(this.buff).addTransientModifier(new AttributeModifier(ANGEL_BUFF, "Angel buff", ((double) this.rank), Operation.MULTIPLY_BASE));
-		if(this.debuff != null) {
-			this.player.getAttribute(this.debuff).addTransientModifier(new AttributeModifier(ANGEL_DEBUFF, "Angel debuff", 1d / ((double) this.rank + 1d), Operation.MULTIPLY_BASE));
-		}
-	}
-	public void onUnslot() {
-		if(this.player.getAttribute(this.buff).getModifier(ANGEL_BUFF) != null) {
-			this.player.getAttribute(this.buff).removeModifier(ANGEL_BUFF);
-		}
-		if(this.debuff != null) {
-			if(this.player.getAttribute(this.debuff).getModifier(ANGEL_DEBUFF) != null) {
-				this.player.getAttribute(this.debuff).removeModifier(ANGEL_DEBUFF);
-			}
-		}
-		
-		MainPactMagic.LOGGER.debug("unslotting " + this.getID());
 
-		this.player = null;
-	}
-	@Nullable public ServerPlayerEntity getPlayer() {
-		return this.player;
-	}
 	public final ResourceLocation getTexture() {
 		return this.texture;
 	}
@@ -127,19 +95,8 @@ public abstract class Angel {
 	public final ITextComponent getDescKey() {
 		return this.desc_key;
 	}
-	
-	public void tick() {
-		if(this.timer > 0) {
-			-- this.timer;
-		}
-	}
-	public void spell(ServerPlayerEntity t) {
-		if(this.timer == 0) {
-			this.timer = this.cooldown;
-			this.effect(t);
-		}
-	}
-	protected abstract void effect(ServerPlayerEntity t);
+
+	public abstract void effect(ServerPlayerEntity t);
 	
 	public static Angel fromID(String key) {
 		return ID_MAP.get(key);

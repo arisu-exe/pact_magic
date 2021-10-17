@@ -7,11 +7,11 @@ public class PowersAngel extends Angel implements IToggleable {
 	boolean allowed;
 	
 	PowersAngel() {
-		super("powers", 2, Attributes.ARMOR, null, true, 0);
+		super("powers", 3, 2, Attributes.ARMOR, null, true, 0);
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		this.allowed = !this.allowed;
 		// Toggle Fighting Spirit
 	}

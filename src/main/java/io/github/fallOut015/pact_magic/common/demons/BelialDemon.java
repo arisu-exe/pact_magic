@@ -7,11 +7,11 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class BelialDemon extends Demon {
 	BelialDemon() {
-		super("belial", 1, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(Items.CRAFTING_TABLE));
+		super("belial", 1, 1, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(Items.CRAFTING_TABLE));
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		// TODO Auto-generated method stub
 		// Activate 
 	}

@@ -12,12 +12,12 @@ public class SeraphimAngel extends Angel {
 	@Nullable SeraphEntity seraph;
 	
 	SeraphimAngel() {
-		super("seraphim", 3, Attributes.MAX_HEALTH, Attributes.ATTACK_DAMAGE, false, 1000);
+		super("seraphim", 8, 3, Attributes.MAX_HEALTH, Attributes.ATTACK_DAMAGE, false, 1000);
 		
 		this.seraph = null;
 	}
 	
-	@Override
+	/*@Override
 	public void onSlot(ServerPlayerEntity player) {
 		super.onSlot(player);
 		
@@ -35,10 +35,10 @@ public class SeraphimAngel extends Angel {
 			this.seraph.remove();
 			this.seraph = null;			
 		}
-	}
+	}*/
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		if(this.seraph != null) {
 			this.seraph.setShielding(!this.seraph.isShielding());
 		}

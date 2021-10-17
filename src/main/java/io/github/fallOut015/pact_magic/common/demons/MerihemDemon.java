@@ -7,11 +7,11 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class MerihemDemon extends Demon {
 	MerihemDemon() {
-		super("merihem", 1, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(Items.POISONOUS_POTATO));
+		super("merihem", 0, 1, Attributes.MOVEMENT_SPEED, Attributes.MAX_HEALTH, false, () -> Ingredient.of(Items.POISONOUS_POTATO));
 	}
 
 	@Override
-	protected void effect(ServerPlayerEntity t) {
+	public void effect(ServerPlayerEntity t) {
 		// TODO Auto-generated method stub
 		// Activate 
 	}
